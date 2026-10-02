@@ -103,6 +103,9 @@
   /* botones de inicio rápido */
 
   /* Velo de lectura de la portada: difumina el mapa detrás del texto */
+  /* Banda clara y difuminada del lado del texto: el mapa queda al otro lado */
+  .velo2 { position: fixed; z-index: 14; top: 0; bottom: 0; left: 0; width: 50vw; pointer-events: none; opacity: 0; background: linear-gradient(90deg, color-mix(in srgb, var(--bg) 92%, transparent) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 62%, transparent 100%); -webkit-backdrop-filter: blur(9px); backdrop-filter: blur(9px); -webkit-mask-image: linear-gradient(90deg, #000 62%, transparent); mask-image: linear-gradient(90deg, #000 62%, transparent); }
+  .velo2.der { left: auto; right: 0; background: linear-gradient(270deg, color-mix(in srgb, var(--bg) 92%, transparent) 0%, color-mix(in srgb, var(--bg) 80%, transparent) 62%, transparent 100%); -webkit-mask-image: linear-gradient(270deg, #000 62%, transparent); mask-image: linear-gradient(270deg, #000 62%, transparent); }
   #velo { position: fixed; z-index: 15; inset: 0 auto 0 0; width: 68vw; pointer-events: none; opacity: 1; background: linear-gradient(90deg, color-mix(in srgb, var(--bg) 90%, transparent) 0%, color-mix(in srgb, var(--bg) 72%, transparent) 55%, transparent 100%); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); -webkit-mask-image: linear-gradient(90deg, #000 60%, transparent); mask-image: linear-gradient(90deg, #000 60%, transparent); }
   /* Control de recorrido: flechas + regla con porcentaje, al estilo de la escala de un mapa */
   #nav3 { position: fixed; z-index: 28; right: clamp(8px, 1.1vw, 18px); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -189,6 +192,23 @@
   .blq.cartela::after { inset: 6px !important; left: 6px !important; right: 6px !important; top: 6px !important; bottom: 6px !important; height: auto !important; background: none !important; border: 1px solid var(--ink); opacity: .6 !important; pointer-events: none; }
   .blq.cartela > :first-child::before { display: none; }
   .blq.cartela .sello { position: absolute; right: -30px; top: -30px; width: 66px; height: 66px; z-index: 2; }
+
+  /* ═══ Texto con movimiento ligado al scroll: los títulos suben palabra a palabra desde una máscara y los párrafos se «escriben» palabra por palabra ═══ */
+  .blq { --e: 1; }
+  .pw { display: inline-block; overflow: hidden; vertical-align: bottom; padding: 0 .04em .14em 0; margin-bottom: -.14em; }
+  .pi { display: inline-block; --q: clamp(0, calc(var(--e) * 2.3 - var(--i) / var(--n) * 1.25), 1); transform: translateY(calc((1 - var(--q)) * 112%)) rotate(calc((1 - var(--q)) * 4deg)); transform-origin: 0 100%; will-change: transform; }
+  .pp { display: inline-block; --q: clamp(0, calc(var(--e) * 2.6 - var(--i) / var(--n) * 1.5), 1); opacity: var(--q); transform: translateY(calc((1 - var(--q)) * .75em)); will-change: transform, opacity; }
+  /* la línea fina y el filete naranja se dibujan de izquierda a derecha al entrar */
+  .blq.panel::after, .conoc::after { transform-origin: 0 50%; transform: scaleX(clamp(0, calc(var(--e) * 1.6), 1)); }
+  .blq.panel > :first-child::before, .conoc > :first-child::before { transform-origin: 0 50%; transform: scaleX(clamp(0, calc(var(--e) * 3 - .3), 1)); }
+  @media (prefers-reduced-motion: reduce) { .pi, .pp { transform: none !important; opacity: 1 !important; } }
+
+  /* ═══ Tipografía con más carácter: el texto principal pasa a Lora grande (serif cálida) y el secundario queda en DM Sans ═══ */
+  .blq.panel > p:first-child { font-family: Lora, Georgia, serif; font-size: clamp(18.5px, 1.62vw, 25px); line-height: 1.62; font-weight: 400; letter-spacing: -.003em; color: var(--ink); }
+  .blq.panel > p:first-child + ul li { font-family: "DM Sans", system-ui, sans-serif; }
+  .info .n { letter-spacing: .24em; }
+  .info h1, .info h2 { font-weight: 600; letter-spacing: -.028em; }
+  .cita { font-weight: 400; letter-spacing: -.01em; }
   @media (max-width: 860px) {
     .info { inset: auto 0 52px 0; max-height: 64vh; overflow: hidden; padding: 0 12px; }
     .blq { position: relative !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; width: auto !important; margin: 0 0 8px; }
@@ -204,7 +224,7 @@
 <header><div class="marca t">Juan Sebastián Pulido Bojacá</div>
   <div class="menu"><button id="bInicio" data-ir="0">Inicio</button><button id="bMenu">Menú</button><span><button data-i="es">ES</button> / <button data-i="en">EN</button></span><button id="bTema" aria-label="Tema">◐</button></div></header>
 <div id="recorrido"><div id="escena"><canvas id="lienzo"></canvas><div id="grano"></div><div id="etiquetas"></div></div></div>
-<div id="velo"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
+<div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
 <script src="contenido.js"></script>
@@ -212,7 +232,7 @@
 import * as THREE from 'three'
 const $ = (s, r = document) => r.querySelector(s)
 const MW = 6000, MH = 4000
-const X0 = -1900, X1 = 7900, Z0 = -1500, Z1 = 5500   // el mundo es mucho mas grande que lo que se visita: no se ven bordes
+const X0 = -4200, X1 = 10200, Z0 = -3400, Z1 = 7400   // el mundo es mucho mas grande que lo que se visita: no se ven bordes
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v)), lerp = (a, b, t) => a + (b - a) * t, suave = (t) => { t = clamp(t, 0, 1); return t * t * (3 - 2 * t) }
 function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296 } }
 
@@ -236,11 +256,14 @@ const ISLAS = {
   d7: { cx: 600, cy: 4900, rx: 440, ry: 290, rot: .25, seed: 87, H: 56, decor: 1 }, d8: { cx: 5600, cy: -600, rx: 360, ry: 220, rot: -.15, seed: 88, H: 50, decor: 1 },
   d9: { cx: 1100, cy: 1800, rx: 160, ry: 100, rot: .3, seed: 89, H: 34, decor: 1 }, d10: { cx: 4300, cy: 1900, rx: 190, ry: 120, rot: -.4, seed: 90, H: 38, decor: 1 },
 }
+const KS = 1.4, S = (x, z) => [3000 + (x - 3000) * KS, 2000 + (z - 2000) * KS]   // separa las islas con contenido; las decorativas lejanas no se tocan
+for (const k in ISLAS) if (!ISLAS[k].decor) { const q = S(ISLAS[k].cx, ISLAS[k].cy); ISLAS[k].cx = q[0]; ISLAS[k].cy = q[1] }
 for (const k in ISLAS) { const m = Math.max(ISLAS[k].rx, ISLAS[k].ry) * 2.9; ISLAS[k].alcance2 = m * m }
 for (const k in ISLAS) { const r = rng(ISLAS[k].seed); ISLAS[k].ph = Array.from({ length: 5 }, () => r() * 6.28); ISLAS[k].rough = .12 + r() * .07 }
 const mult = (I, a) => 1 + I.rough * (.5 * Math.sin(2 * a + I.ph[0]) + .36 * Math.sin(3 * a + I.ph[1]) + .24 * Math.sin(5 * a + I.ph[2]) + .08 * Math.sin(9 * a + I.ph[3]) + .04 * Math.sin(14 * a + I.ph[4]))
 const punto = (I, a, k = 1) => { const m = mult(I, a) * k, x = I.rx * m * Math.cos(a), y = I.ry * m * Math.sin(a); return [I.cx + x * Math.cos(I.rot) - y * Math.sin(I.rot), I.cy + x * Math.sin(I.rot) + y * Math.cos(I.rot)] }
 /* altura del terreno y «plataforma» submarina (negativa) en un punto del mundo */
+const ALT = 2.4   // exageración vertical: las islas se elevan más sobre el mar
 function relieve(x, z) {
   let h = 0, S = 0
   for (const k in ISLAS) {
@@ -249,7 +272,7 @@ function relieve(x, z) {
     const lx = dx * Math.cos(I.rot) + dz * Math.sin(I.rot), lz = -dx * Math.sin(I.rot) + dz * Math.cos(I.rot)
     const a = Math.atan2(lz / I.ry, lx / I.rx), r = Math.hypot(lx / I.rx, lz / I.ry) / mult(I, a)
     if (r < 1) { const t = 1 - r, n = (Math.sin(x * .0105 + I.ph[0]) * Math.sin(z * .0125 + I.ph[1]) + .55 * Math.sin(x * .026 + z * .02 + I.ph[2])) * .5 + .5
-      h = Math.max(h, I.H * Math.pow(t, .62) * (.7 + .55 * n * Math.min(1, t * 2.2))) }
+      h = Math.max(h, ALT * I.H * Math.pow(t, .62) * (.7 + .55 * n * Math.min(1, t * 2.2))) }
     if (r < 2.4) S += Math.exp(-7 * r)   // mínimo suave de las distancias: las ondas de costa ya no forman escalones entre islas
   }
   const rs = S > 0 ? -Math.log(S) / 7 : 9
@@ -271,7 +294,7 @@ for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) { const [h, s] = relie
 
 marca('alturas')
 // Tinte de relieve: arena en la costa, ocre y sepia al subir, gris rocoso en las cumbres; el mar se enfría cerca de la orilla
-const PAPEL = [.937, .902, .816], RAMPA = [[0, [.93, .90, .77]], [30, [.88, .81, .60]], [65, [.80, .69, .48]], [100, [.70, .58, .41]], [135, [.66, .59, .50]]]
+const PAPEL = [.937, .902, .816], RAMPA = [[0, [.93, .90, .77]], [30 * ALT, [.88, .81, .60]], [65 * ALT, [.80, .69, .48]], [100 * ALT, [.70, .58, .41]], [135 * ALT, [.66, .59, .50]]]
 function tinte(h, sh) {
   if (h > .4) {
     let a = RAMPA[0], b = RAMPA[RAMPA.length - 1]
@@ -283,10 +306,10 @@ function tinte(h, sh) {
   return [1 - .1 * s, 1 - .045 * s, 1 - .012 * s]
 }
 // Malla del terreno con sombreado en grises (luz desde el noroeste)
-const pos = new Float32Array(NX * NZ * 3), col = new Float32Array(NX * NZ * 3), L = new THREE.Vector3(-.55, .8, -.35).normalize()
+const pos = new Float32Array(NX * NZ * 3), col = new Float32Array(NX * NZ * 3), L = new THREE.Vector3(-.62, .5, -.42).normalize()
 for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) {
   const k = j * NX + i, hx0 = H[j * NX + Math.max(i - 1, 0)], hx1 = H[j * NX + Math.min(i + 1, NX - 1)], hz0 = H[Math.max(j - 1, 0) * NX + i], hz1 = H[Math.min(j + 1, NZ - 1) * NX + i]
-  const nx_ = hx0 - hx1, nz_ = hz0 - hz1, ln = Math.hypot(nx_, 2 * CELDA, nz_), luz = (nx_ * L.x + 2 * CELDA * L.y + nz_ * L.z) / ln, f = clamp(1 - (.8 - luz) * .85, .5, 1)
+  const nx_ = hx0 - hx1, nz_ = hz0 - hz1, ln = Math.hypot(nx_, 2 * CELDA, nz_), luz = (nx_ * L.x + 2 * CELDA * L.y + nz_ * L.z) / ln, f = clamp(1 - (L.y - luz) * 1.7, .36, 1.04)
   pos.set([X0 + i * CELDA, H[k], Z0 + j * CELDA], k * 3); const m = tinte(H[k], SH[k]); col.set([f * m[0], f * m[1], f * m[2]], k * 3)
 }
 const idx = []; for (let j = 0; j < NZ - 1; j++) for (let i = 0; i < NX - 1; i++) { const a = j * NX + i, b = a + 1, c = a + NX, d = c + 1; idx.push(a, c, b, b, c, d) }
@@ -309,9 +332,9 @@ function contornos(campo, nivel, y, destino) {
   }
 }
 const lineas = { normal: [], indice: [], costa: [], costa2: [], ola: [], rejilla: [], rosa: [], rumbo: [], ola2: [] }
-const maxH = 130
-for (let n = 1; n * 12 <= maxH; n++) contornos(H, n * 12, n * 12 + .6, n % 5 === 0 ? lineas.indice : lineas.normal)
-contornos(H, .35, .9, lineas.costa); contornos(H, 5, 5.6, lineas.costa2)
+const maxH = 130 * ALT
+for (let n = 1; n * 12 * ALT <= maxH; n++) contornos(H, n * 12 * ALT, n * 12 * ALT + .8, n % 5 === 0 ? lineas.indice : lineas.normal)
+contornos(H, .35, .9, lineas.costa); contornos(H, 5 * ALT, 5 * ALT + .8, lineas.costa2)
 ;[-.1, -.24, -.4, -.58].forEach((n) => contornos(SH, n, .4, lineas.ola))
 // rejilla de cartografo (graticule) que se pierde en la niebla, sin marco: el mapa no tiene borde
 for (let x = Math.ceil(X0 / 250) * 250; x <= X1; x += 250) lineas.rejilla.push(x, .2, Z0, x, .2, Z1)
@@ -357,17 +380,18 @@ function aplicarTema(t) {
 
 /* ── Paradas: dónde mira la cámara, desde qué ángulo y con qué lado de información ── */
 const PARADAS = [
-  { id: 'inicio', x: 3350, y: 1800, ancho: 4700, dx: .2, dy: .08, yaw: 34, pitch: 50, isla: null },
-  { id: 'soporte', x: 3800, y: 900, ancho: 1500, dx: .22, dy: 0, yaw: 38, pitch: 46, isla: 'soporte' },
-  { id: 'pen', x: 2000, y: 1150, ancho: 2300, dx: -.2, dy: -.02, yaw: 20, pitch: 48, isla: 'pen' },
-  { id: 'arch', x: 2450, y: 2650, ancho: 3300, dx: .1, dy: -.08, yaw: 30, pitch: 52, isla: null },
-  { id: 'sullivan', x: 1650, y: 2450, ancho: 800, dx: .06, dy: -.04, yaw: 50, pitch: 42, isla: 'sullivan' },
-  { id: 'nivel', x: 2400, y: 2850, ancho: 1050, dx: 0, dy: -.04, yaw: 15, pitch: 44, isla: 'nivel' },
-  { id: 'kairos', x: 3150, y: 2400, ancho: 1200, dx: 0, dy: -.04, yaw: 42, pitch: 44, isla: 'kairos' },
-  { id: 'conoc', x: 4890, y: 3590, ancho: 1900, dx: .1, dy: .02, yaw: 45, pitch: 42, isla: null },
-  { id: 'ia', x: 3950, y: 3350, ancho: 1300, dx: .2, dy: .02, yaw: 25, pitch: 46, isla: 'ia' },
-  { id: 'puerto', x: 5450, y: 2350, ancho: 1200, dx: .24, dy: 0, yaw: 30, pitch: 45, isla: 'puerto' },
+  { id: 'inicio', x: 3350, y: 1800, ancho: 6200, dx: .2, dy: .08, yaw: 34, pitch: 50, isla: null, velo: 'izq' },
+  { id: 'soporte', x: 3800, y: 900, ancho: 1500, dx: .26, dy: 0, yaw: 38, pitch: 46, isla: 'soporte', velo: 'izq' },
+  { id: 'pen', x: 2000, y: 1150, ancho: 2300, dx: -.26, dy: 0, yaw: 20, pitch: 48, isla: 'pen', velo: 'der' },
+  { id: 'arch', x: 2450, y: 2650, ancho: 4400, dx: .1, dy: -.08, yaw: 30, pitch: 52, isla: null, velo: 'izq' },
+  { id: 'sullivan', x: 1650, y: 2450, ancho: 800, dx: .24, dy: .2, yaw: 50, pitch: 42, isla: 'sullivan', velo: 'izq' },
+  { id: 'nivel', x: 2400, y: 2850, ancho: 1050, dx: .24, dy: .2, yaw: 15, pitch: 44, isla: 'nivel', velo: 'izq' },
+  { id: 'kairos', x: 3150, y: 2400, ancho: 1200, dx: .24, dy: .2, yaw: 42, pitch: 44, isla: 'kairos', velo: 'izq' },
+  { id: 'conoc', x: 4890, y: 3590, ancho: 1900, dx: .1, dy: .02, yaw: 45, pitch: 42, isla: null, velo: 'izq' },
+  { id: 'ia', x: 3950, y: 3350, ancho: 1300, dx: -.22, dy: .2, yaw: 25, pitch: 46, isla: 'ia', velo: 'der' },
+  { id: 'puerto', x: 5450, y: 2350, ancho: 1200, dx: .26, dy: 0, yaw: 30, pitch: 45, isla: 'puerto', velo: 'izq' },
 ]
+PARADAS.forEach((q) => { if (q.id !== 'inicio') { const t = S(q.x, q.y); q.x = t[0]; q.y = t[1] } })
 const N = PARADAS.length, IC = 7   // IC: posición de la parada de Conocimientos
 const MEDIA = { 'Servicios Kairos': { v: 'media/kairos.webm', img: 'media/kairos-poster.png' }, 'Nivel': { v: 'media/nivel.webm', img: 'media/nivel-poster.png' }, 'Jardín Sullivan': { v: 'media/sullivan.webm', img: 'media/sullivan-poster.png' } }
 const REGION = {
@@ -447,17 +471,17 @@ function contenidos(i) {
   // Los tres proyectos usan la misma composición grande: el video/pantalla de su página es el protagonista
   const enlaces = (p) => (p.links || []).map(([n, u]) => `<a class="btn" href="${u}" target="_blank" rel="noopener">${n} ↗</a>`).join('') + (p.nota ? `<p class="nota-priv">${p.nota}</p>` : '')
   const obra = (k, p) => [
-    MEDIA[p.nombre] ? B(vid(p, 'ampliable'), 'mapa', 'left:3vw;top:13vh;width:59vw', 0) : '',
-    B(`${cab(k)}<h2 style="font-size:clamp(28px,3.3vw,52px)">${p.nombre}</h2><div class="n">${p.tipo}</div>`, 'der', 'right:5.4vw;top:12vh;width:32vw', .05),
-    B(`<p>${p.resumen}</p><ul>${p.puntos.map((x) => `<li>${x}</li>`).join('')}</ul>`, 'arr', 'right:5.4vw;top:35vh;width:32vw', .1, 'panel'),
-    B(`<div class="datos">${p.datos.map((d) => `<div><strong>${d[0]}</strong><span>${d[1]}</span></div>`).join('')}</div><div class="tec" style="margin-top:12px">${p.tec}</div>`, 'aba', 'left:3vw;bottom:11vh', .14, 'panel'),
-    B(`<div class="enl">${enlaces(p)}</div>`, 'aba', 'right:5.4vw;bottom:11vh;width:31vw', .16, 'sec'),
+    MEDIA[p.nombre] ? B(vid(p, 'ampliable'), 'mapa', 'left:47vw;top:13vh;width:42vw', 0) : '',
+    B(`${cab(k)}<h2 style="font-size:clamp(28px,3.3vw,52px)">${p.nombre}</h2><div class="n">${p.tipo}</div>`, 'izq', 'left:4vw;top:13vh;width:36vw', .05),
+    B(`<p>${p.resumen}</p><ul>${p.puntos.map((x) => `<li>${x}</li>`).join('')}</ul>`, 'izq', 'left:4vw;top:31vh;width:36vw', .1, 'panel'),
+    B(`<div class="datos">${p.datos.map((d) => `<div><strong>${d[0]}</strong><span>${d[1]}</span></div>`).join('')}</div><div class="tec" style="margin-top:12px">${p.tec}</div>`, 'izq', 'left:4vw;bottom:9vh;width:36vw', .34, 'panel fase2'),
+    B(`<div class="enl">${enlaces(p)}</div>`, 'aba', 'left:47vw;top:58vh;width:42vw', .4, 'sec fase2'),
   ].join('')
   return [
     // 0 portada
     B(`<div class="n">${c.sub}</div><h1>${c.nombre.split(' ').slice(0, 2).join(' ')}<em>${c.nombre.split(' ').slice(2).join(' ')}</em>`, 'mapa', 'left:5vw;top:22vh;width:56vw', 0) + B(`<p class="rol">${c.rol}</p><p style="max-width:44ch;margin-top:8px">${c.lema}</p>`, 'izq', 'left:5vw;top:60vh;width:42vw', .08) + B(`<a class="btn" data-ir="3">${c.cta1} ↓</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:5vw;bottom:12vh', .14),
     // 1 perfil
-    B(`${cab(1)}<h2>${t.perfil}</h2>`, 'izq', 'left:4vw;top:14vh;width:42vw', 0) + B(`<p>${c.perfil}</p>`, 'mapa', 'left:4vw;top:30vh;width:44vw', .06, 'panel') + B(`<div class="fila-mini">${c.hacer.map((h, n) => `<div class="mini"><b>0${n + 1}</b><span class="nm" style="font:600 clamp(17px,1.4vw,22px) Lora;color:var(--ink);display:block">${h[0]}</span><span>${h[1]}</span></div>`).join('')}</div>`, 'aba', 'left:4vw;bottom:10.5vh;width:66vw', .14),
+    B(`${cab(1)}<h2>${t.perfil}</h2>`, 'izq', 'left:4vw;top:14vh;width:42vw', 0) + B(`<p>${c.perfil}</p>`, 'mapa', 'left:4vw;top:30vh;width:44vw', .06, 'panel') + B(`<div class="fila-mini">${c.hacer.map((h, n) => `<div class="mini"><b>0${n + 1}</b><span class="nm" style="font:600 clamp(17px,1.4vw,22px) Lora;color:var(--ink);display:block">${h[0]}</span><span>${h[1]}</span></div>`).join('')}</div>`, 'aba', 'left:4vw;bottom:10.5vh;width:66vw', .34, 'fase2'),
     // 2 experiencia
     B(`${cab(2)}<h2>${c.expTitulo}</h2>`, 'arr', 'right:5.4vw;top:14vh;width:46vw', 0) + c.exp.map((e, k) => B(`<div class="n">${e[2]}</div><h3>${e[0]}</h3><p style="color:var(--soft);margin-bottom:6px">${e[1]}</p><p>${e[3]}</p>`, k ? 'aba' : 'der', `right:5.4vw;top:${k ? 58 : 31}vh;width:46vw`, .06 + k * .08, 'panel')).join(''),
     // 3 proyectos (tarjetas con las capturas a color)
@@ -466,9 +490,9 @@ function contenidos(i) {
     // 7 conocimientos (botones en el mapa + detalle con logos a color)
     B(`${cab(7)}<h2>${R.conoc}</h2><p style="max-width:34ch">${t.toca}</p>`, 'izq', 'left:4vw;top:15vh;width:36vw', 0) + B(`<p style="color:var(--soft)">${c.estudios[0]}<br>${c.estudios[1]}<br>${c.idiomas}</p>`, 'aba', 'left:4vw;bottom:8vh;width:34vw', .1, 'panel sec') + `<div class="blq panel conoc" data-de="conoc" style="right:5.4vw;top:12vh;width:52vw"></div>`,
     // 8 IA aplicada
-    B(`${cab(8)}<h2>${c.iaTitulo}</h2><p class="cita">“${c.iaIntro}”</p>`, 'izq', 'left:4vw;top:14vh;width:40vw', 0)
-      + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}</div>`, 'aba', 'left:4vw;bottom:9vh;width:44vw', .22, 'sec')
-      + IAPRO[i].map((x, k) => B(`<div class="ic">${ICONO_IA[k]}</div><h3>${x.t}</h3><p>${x.d}</p><div class="etiq">${x.tags.map((g) => `<span>${g}</span>`).join('')}</div>`, ['arr', 'der', 'izq', 'aba'][k], `left:${k % 2 ? 71 : 46}vw;top:${k < 2 ? 12 : 50}vh;width:23vw;--c:${x.c}`, .05 + k * .06, 'panel iac')).join(''),
+    B(`${cab(8)}<h2>${c.iaTitulo}</h2><p class="cita">“${c.iaIntro}”</p>`, 'izq', 'left:4vw;top:13vh;width:34vw', 0)
+      + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}</div>`, 'aba', 'left:4vw;bottom:9vh;width:34vw', .4, 'sec fase2')
+      + IAPRO[i].map((x, k) => B(`<div class="ic">${ICONO_IA[k]}</div><h3>${x.t}</h3><p>${x.d}</p><div class="etiq">${x.tags.map((g) => `<span>${g}</span>`).join('')}</div>`, ['arr', 'der', 'izq', 'aba'][k], `left:${k % 2 ? 71 : 45}vw;top:${k < 2 ? 12 : 50}vh;width:23vw;--c:${x.c}`, k < 2 ? .05 + k * .06 : .3 + (k - 2) * .05, 'panel iac' + (k < 2 ? '' : ' fase2'))).join(''),
     // 9 contacto
     B(`${cab(9)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2>`, 'mapa', 'left:4vw;top:16vh;width:56vw', 0) + B(`<p style="max-width:42ch">${c.contactoTexto}</p><p style="margin-top:16px"><a class="correo" href="mailto:${c.correo}">${c.correo}</a></p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:50vh;width:46vw', .08, 'panel cartela') + B(`<a class="btn" href="${c.github}" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:4vw;bottom:13vh', .14),
   ]
@@ -482,25 +506,25 @@ function construirAnclas(i) {
   const isla = (k, nombre, cota, dy = 30, vis = null) => nueva(`<b>${nombre}</b><small>COTA ${String(ISLAS[k].H).padStart(3, '0')}</small>`, 'isla', ISLAS[k].cx, ISLAS[k].cy, dy, vis, k)
   isla('soporte', R.soporte); isla('pen', R.pen); isla('sullivan', R.sullivan); isla('nivel', R.nivel); isla('kairos', R.kairos); isla('ia', R.ia); isla('puerto', R.puerto)
   ;[-.7, .5, 2.2, 3.6].forEach((a, k) => { const [x, z] = punto(ISLAS.soporte, a, .86); nueva(c.hacer[k][0], 'pin', x, z, 12, 1) })
-  nueva(c.exp[0][0].split(' (')[0], 'pin', 1700, 1100, 14, 2); nueva(c.exp[1][0], 'pin', 2400, 1190, 14, 2)
-  nueva(c.contactoTitulo, 'pin', 5450, 2330, 30, 9)
+  { const a1 = S(1700, 1100), a2 = S(2400, 1190); nueva(c.exp[0][0].split(' (')[0], 'pin', a1[0], a1[1], 14, 2); nueva(c.exp[1][0], 'pin', a2[0], a2[1], 14, 2) }
+  { const a3 = S(5450, 2330); nueva(c.contactoTitulo, 'pin', a3[0], a3[1], 30, 9) }
   // mares y regiones sin explorar: texto grande que se escala con la cercania de la camara, como rotulos de un mapa
   const MARES = { es: [['Mar de la Curiosidad', 'donde empiezan los proyectos', 2900, 1650], ['Océano del Soporte', 'aguas de atención y seguimiento', 400, 3500], ['Golfo de la Documentación', 'lo escrito permanece', 5200, 1250], ['Estrecho de la Validación', 'probar antes de navegar', 3200, 3050], ['Mar del Código', 'mares de TypeScript', 4700, 4300], ['Terra Incognita', 'por explorar', -1000, 1400], ['Mar de las Preguntas', 'sin respuesta aún', 6900, 3300]], en: [['Sea of Curiosity', 'where projects begin', 2900, 1650], ['Ocean of Support', 'waters of care and follow-up', 400, 3500], ['Gulf of Documentation', 'what is written remains', 5200, 1250], ['Strait of Validation', 'test before you sail', 3200, 3050], ['Sea of Code', 'seas of TypeScript', 4700, 4300], ['Terra Incognita', 'yet to be explored', -1000, 1400], ['Sea of Questions', 'still unanswered', 6900, 3300]] }
-  MARES[i].forEach(([n, sub, x, z]) => { nueva(`${n}<small>${sub}</small>`, 'mar', x, z, 0, null) })
+  MARES[i].forEach(([n, sub, x, z]) => { const t = S(x, z); nueva(`${n}<small>${sub}</small>`, 'mar', t[0], t[1], 0, null) })
   const BARCO = '<svg viewBox="-60 -110 120 130" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M-50 0Q0 38 50 0Z" fill="rgba(255,248,225,.5)"/><path d="M0 0V-96M-26 0V-62M26 0V-62"/><path d="M-4 -92Q-44 -66 -4 -34Z M4 -92Q44 -66 4 -34Z"/><path d="M-26 -60Q-44 -46 -26 -24Z M26 -60Q44 -46 26 -24Z"/><path d="M0 -96l22 7-22 7" fill="currentColor"/></svg>'
-  ;[[2980, 1800], [4650, 2750], [1250, 1850], [5300, 1550], [3100, 3800], [-300, 2300]].forEach(([x, z]) => nueva(BARCO, 'barco', x, z, 0, null))
+  ;[[2980, 1800], [4650, 2750], [1250, 1850], [5300, 1550], [3100, 3800], [-300, 2300]].forEach(([x, z]) => { const t = S(x, z); nueva(BARCO, 'barco', t[0], t[1], 0, null) })
 }
 
 /* ── Cámara ── */
 let suaveX = 0, suaveY = 0
-let W = innerWidth, Hh = innerHeight, PASO = Hh * 1.25, pSuave = 0, pMeta = 0, ratonX = 0, ratonY = 0
+let W = innerWidth, Hh = innerHeight, PASO = Hh * 1.6, pSuave = 0, pMeta = 0, ratonX = 0, ratonY = 0
 const movil = () => W <= 860
 function geom() {
   tinta.width = innerWidth; tinta.height = innerHeight
-  W = innerWidth; Hh = innerHeight; PASO = Hh * 1.25; $('#recorrido').style.height = ((N - 1) * PASO + Hh) + 'px'
+  W = innerWidth; Hh = innerHeight; PASO = Hh * 1.6; $('#recorrido').style.height = ((N - 1) * PASO + Hh) + 'px'
   renderer?.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer?.setSize(W, Hh, false); cam.aspect = W / Hh; cam.updateProjectionMatrix()
   PARADAS.forEach((p) => {
-    const libre = movil() ? .96 : p.id === 'inicio' ? .56 : .74, cerca = p.id === 'inicio' ? 1 : .93   // más cerca del mapa: la información ocupa más pantalla
+    const libre = movil() ? .96 : p.id === 'inicio' ? .56 : .74, cerca = p.id === 'inicio' ? 1 : 1.02   // más cerca del mapa: la información ocupa más pantalla
     p.D = (p.ancho * cerca / libre) / (2 * Math.tan(cam.fov * Math.PI / 360) * cam.aspect)
     p.ex = movil() ? 0 : p.dx; p.ey = movil() ? -.2 : p.dy
   })
@@ -530,7 +554,9 @@ function capasParallax() {
 }
 function pintarUI() {
   const k = clamp(Math.round(pSuave), 0, N - 1), R = REGION[idioma], P = PARADAS[k]
-  $('#velo').style.opacity = clamp(1 - pSuave / .5, 0, 1).toFixed(3)
+  $('#velo').style.opacity = 0
+  { let wi = 0, wd = 0; PARADAS.forEach((q, j) => { const w = clamp(1 - Math.abs(pSuave - j - .1) / .6, 0, 1); if (q.velo === 'izq') wi = Math.max(wi, w); else if (q.velo === 'der') wd = Math.max(wd, w) })
+    $('#veloI').style.opacity = wi.toFixed(3); $('#veloD').style.opacity = wd.toFixed(3) }
   { const pc = clamp(pSuave / (N - 1), 0, 1); $('#regla .lleno').style.height = pc * 100 + '%'; $('#regla .mk').style.top = pc * 100 + '%'; $('#pct').innerHTML = Math.round(pc * 100) + '<small>%</small>'; $('#progMov i').style.width = pc * 100 + '%'
     document.querySelectorAll('#regla .tk').forEach((t, n) => t.classList.toggle('act', n === k)); $('#bPrev').disabled = Math.round(pMeta) <= 0; $('#bNext').disabled = Math.round(pMeta) >= N - 1 }
   $('#pie').innerHTML = `<b>${String(k).padStart(2, '0')} / ${String(N - 1).padStart(2, '0')}</b> — ${R[P.id]}`
@@ -539,15 +565,15 @@ function pintarUI() {
   // información: cada bloque brota del mapa o entra desde un lado; al irte se va por donde vino
   const mv = movil(), sentido = { izq: [-1, 0, -2.5], der: [1, 0, 2.5], arr: [0, -1, -2], aba: [0, 1, 2] }
   document.querySelectorAll('#infos .info').forEach((cont) => {
-    const j = +cont.dataset.k, d = pSuave - j, P = PARADAS[j], activo = d > -.45 && d < .62
+    const j = +cont.dataset.k, d = pSuave - j, P = PARADAS[j], activo = d > -.45 && d < .74
     cont.classList.toggle('vis', activo)
     if (!activo) { cont.querySelectorAll('video').forEach((v) => !v.paused && v.pause()); return }
     const I = P.isla ? ISLAS[P.isla] : null, wx = I ? I.cx : P.x, wz = I ? I.cy : P.y, q0 = proyectar(new THREE.Vector3(wx, relieve(wx, wz)[0] + 10, wz))
     cont.querySelectorAll('.blq').forEach((b) => {
       const de = b.dataset.de, delay = +b.dataset.delay
       let e
-      if (de === 'conoc') e = suave(conocT) * (1 - suave((d - .3) / .2)); else { const a = suave((d + .34 - delay) / .24), o = suave((d - .3 - delay * .6) / .2); e = a * (1 - o) }
-      b.style.opacity = clamp(e * 1.5, 0, 1).toFixed(3); b.classList.toggle('on', e > .7)
+      if (de === 'conoc') e = suave(conocT) * (1 - suave((d - .3) / .2)); else { const a = suave((d + .34 - delay) / .24), o = suave((d - .5) / .2); e = a * (1 - o) }
+      b.style.opacity = clamp(e * 1.5, 0, 1).toFixed(3); b.style.setProperty('--e', e.toFixed(3)); b.classList.toggle('on', e > .7)
       const px = -suaveX * 14, py = -suaveY * 8
       if (de === 'mapa' || de === 'conoc') {
         const ref = de === 'conoc' ? document.querySelector(`.punto[data-n="${conocUlt}"]`) : null, q = ref && ref._q ? ref._q : q0
@@ -597,7 +623,37 @@ function bucle() {
 }
 const alScroll = () => { pMeta = clamp(scrollY / PASO, 0, N - 1) }
 const ir = (k) => scrollTo({ top: clamp(k, 0, N - 1) * PASO, behavior: 'smooth' })
+const TIENE2 = (k) => !!document.querySelector(`#infos .info[data-k="${k}"] .fase2`)
+const irA = (x) => scrollTo({ top: clamp(x, 0, N - 1) * PASO, behavior: 'smooth' })
+function siguiente() { const k = Math.floor(pMeta + .04), f = pMeta - k; if (k < N - 1 && TIENE2(k) && f < .12) irA(k + .27); else irA(k + 1) }
+function anterior() { const k = Math.floor(pMeta + .04), f = pMeta - k; if (f > .16) irA(k); else irA(k - 1) }
 
+
+
+/* Parte cada título y párrafo en palabras para animarlas con el scroll (--i = posición, --n = total del bloque) */
+function envolverPalabras() {
+  document.querySelectorAll('#infos .blq').forEach((b) => {
+    let n = 0
+    b.querySelectorAll('h1, h2, p, li').forEach((el) => {
+      if (el.closest('a, svg, .media, .datos, .tec, .enl, .nota-priv, .etiq')) return
+      const titulo = /^H[12]$/.test(el.tagName), w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), nodos = []
+      while (w.nextNode()) { if (!w.currentNode.parentElement.closest('a, svg')) nodos.push(w.currentNode) }
+      nodos.forEach((t) => {
+        if (!t.nodeValue.trim()) return
+        const frag = document.createDocumentFragment()
+        t.nodeValue.split(/(\s+)/).forEach((tr) => {
+          if (!tr) return
+          if (/^\s+$/.test(tr)) { frag.appendChild(document.createTextNode(' ')); return }
+          const sp = document.createElement('span'); sp.className = titulo ? 'pw' : 'pp'
+          if (titulo) { const i2 = document.createElement('span'); i2.className = 'pi'; i2.style.setProperty('--i', n++); i2.textContent = tr; sp.appendChild(i2) } else { sp.style.setProperty('--i', n++); sp.textContent = tr }
+          frag.appendChild(sp)
+        })
+        t.replaceWith(frag)
+      })
+    })
+    b.style.setProperty('--n', Math.max(n, 1))
+  })
+}
 function pintarTextos(i) {
   idioma = i; document.documentElement.lang = i
   const H2 = contenidos(i)
@@ -612,6 +668,7 @@ function pintarTextos(i) {
   $('#indice').innerHTML = PARADAS.map((p, k) => `<a data-ir="${k}"><span>${String(k).padStart(2, '0')}</span>${REGION[i][p.id]}</a>`).join('')
   $('#guia').innerHTML = `${TXT[i].guia}<span>↓</span>`; $('#bMenu').textContent = TXT[i].menu; $('#bInicio').textContent = TXT[i].inicio; $('#mMapa').textContent = TXT[i].mapa; $('#mLista').textContent = TXT[i].lista
   document.querySelectorAll('.menu [data-i]').forEach((b) => b.classList.toggle('on', b.dataset.i === i))
+  envolverPalabras()
   construirAnclas(i)
 }
 addEventListener('scroll', alScroll, { passive: true })
@@ -664,8 +721,8 @@ function actualizarCursor(t) {
     ctxT.globalAlpha = .26; ctxT.beginPath(); ctxT.arc(ratonPx, ratonPy, clamp(vel * .13, 1, 3.2), 0, 6.283); ctxT.fill(); ctxT.globalAlpha = 1
   }
 }
-addEventListener('keydown', (e) => { const k = Math.round(pMeta); if (['ArrowDown', 'PageDown', 'ArrowRight'].includes(e.key)) { e.preventDefault(); ir(k + 1) } if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); ir(k - 1) } if (e.key === 'Escape') { $('#indice').classList.remove('abierto'); $('#visor').classList.remove('abierto'); cerrarConoc() } })
-$('#bPrev').onclick = () => ir(Math.round(pMeta) - 1); $('#bNext').onclick = () => ir(Math.round(pMeta) + 1)
+addEventListener('keydown', (e) => { const k = Math.round(pMeta); if (['ArrowDown', 'PageDown', 'ArrowRight'].includes(e.key)) { e.preventDefault(); siguiente() } if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); ir(k - 1) } if (e.key === 'Escape') { $('#indice').classList.remove('abierto'); $('#visor').classList.remove('abierto'); cerrarConoc() } })
+$('#bPrev').onclick = anterior; $('#bNext').onclick = siguiente
 document.addEventListener('click', (e) => {
   const pt = e.target.closest('.punto'), cv = e.target.closest('[data-conoc]'), cc = e.target.closest('[data-cerrar]')
   const med = e.target.closest('.media.ampliable'), vis = e.target.closest('#visor')
