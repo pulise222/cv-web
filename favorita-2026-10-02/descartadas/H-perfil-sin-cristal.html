@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Perfil · opciones sin cristal</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..600&family=DM+Sans:ital,opsz,wght@0,9..40,400..600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#efe6d0; --papel:#f6efdc; --ink:#2b2013; --soft:#74634c; --line:rgba(43,32,19,.28); --acento:#c4552d; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font: 400 15px/1.6 "DM Sans", system-ui, sans-serif; color: var(--ink); background: #2b2013; }
+  .op { position: relative; height: 100vh; min-height: 640px; overflow: hidden; background: #efe6d0 url(../media/fondo-perfil.jpg) center / cover; }
+  .op::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 90px 6px rgba(80,45,10,.28); }
+  .menu { position: fixed; z-index: 50; left: 50%; top: 14px; transform: translateX(-50%); display: flex; gap: 6px; padding: 6px; border-radius: 99px; background: var(--papel); border: 1px solid var(--line); box-shadow: 0 10px 30px -12px rgba(60,35,10,.5); }
+  .menu a { font: 500 11px "JetBrains Mono"; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: var(--ink); padding: 8px 14px; border-radius: 99px; } .menu a:hover { background: var(--ink); color: var(--papel); }
+  .rot { position: absolute; left: 3vw; top: 12vh; font: 500 11px "JetBrains Mono"; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); z-index: 3; } .rot b { color: var(--acento); font-weight: 500; }
+  .n { font: 500 11px "JetBrains Mono"; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+  h2 { font: 600 clamp(40px, 5.4vw, 86px)/1 Lora; letter-spacing: -.02em; }
+  .pos { position: absolute; }
+  b.t { font: 600 clamp(17px, 1.45vw, 22px) Lora; display: block; } p.d { font-size: 14px; color: var(--soft); line-height: 1.5; margin-top: 3px; }
+
+  /* 1 · Hoja de papel: superficie solida, como una nota clavada al mapa */
+  .H1 .hoja { left: 4vw; top: 16vh; width: 47vw; background: var(--papel); padding: clamp(26px, 3vw, 46px); border: 1px solid var(--line); box-shadow: 0 24px 50px -22px rgba(60,35,10,.6), 0 3px 8px -2px rgba(60,35,10,.25); transform: rotate(-.6deg); }
+  .H1 .hoja::before { content: ""; position: absolute; left: 50%; top: -12px; width: 20px; height: 20px; margin-left: -10px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #e0825a, #a63f1b); box-shadow: 0 4px 6px rgba(0,0,0,.35); }
+  .H1 .hoja h2 { margin: 8px 0 16px; } .H1 .lead { font: 400 clamp(17px, 1.4vw, 21px)/1.65 Lora; }
+  .H1 .tres { right: 4vw; top: 22vh; width: 30vw; text-shadow: 0 0 12px var(--bg), 0 0 5px var(--bg); } .H1 .tres > div { padding: 18px 0; border-top: 1px solid var(--ink); } .H1 .tres > div:last-child { border-bottom: 1px solid var(--ink); }
+
+  /* 2 · Tinta directa: sin cajas, el texto ocupa un area despejada del mapa */
+  .H2 .clara { position: absolute; inset: 0 auto 0 0; width: 54vw; background: radial-gradient(ellipse 80% 85% at 30% 48%, rgba(239,230,208,.97), rgba(239,230,208,.9) 55%, rgba(239,230,208,0) 100%); }
+  .H2 .texto { left: 5vw; top: 15vh; width: 44vw; } .H2 .texto h2 { margin: 10px 0 22px; } .H2 .lead { font: 400 clamp(19px, 1.7vw, 26px)/1.5 Lora; }
+  .H2 .items { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 28px; } .H2 .items > div { border-left: 3px solid var(--acento); padding-left: 14px; }
+
+  /* 3 · Leyenda de plano: recuadro solido de doble linea */
+  .H3 .titulo { left: 4vw; top: 15vh; width: 40vw; text-shadow: 0 0 14px var(--bg), 0 0 6px var(--bg); } .H3 .lead { font: 400 clamp(17px, 1.5vw, 22px)/1.6 "DM Sans"; margin-top: 16px; max-width: 40ch; }
+  .H3 .ley { right: 4vw; top: 16vh; width: 34vw; background: var(--papel); padding: 12px; box-shadow: 0 22px 46px -22px rgba(60,35,10,.6); } .H3 .ley > div { border: 1.5px solid var(--ink); padding: 22px 26px 8px; position: relative; } .H3 .ley > div::before { content: ""; position: absolute; inset: 4px; border: 1px solid var(--ink); pointer-events: none; }
+  .H3 .ley h3 { font: 600 12px "JetBrains Mono"; letter-spacing: .24em; text-transform: uppercase; text-align: center; padding-bottom: 12px; border-bottom: 1px solid var(--ink); position: relative; }
+  .H3 .fila { display: grid; grid-template-columns: 46px 1fr; gap: 14px; align-items: center; padding: 15px 0; border-bottom: 1px dashed var(--line); position: relative; } .H3 .fila:last-child { border-bottom: 0; }
+  .H3 .fila svg { width: 40px; height: 40px; fill: none; stroke: var(--acento); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* 4 · Bloque solido oscuro: contraste maximo */
+  .H4 .titulo { left: 4vw; top: 15vh; width: 36vw; text-shadow: 0 0 14px var(--bg), 0 0 6px var(--bg); } .H4 .lead { font: 400 clamp(17px, 1.5vw, 22px)/1.6 "DM Sans"; margin-top: 16px; max-width: 38ch; }
+  .H4 .panel { right: 4vw; top: 13vh; width: 44vw; background: #2b2013; color: #f2e9d4; padding: clamp(24px, 2.6vw, 40px); border-radius: 6px; box-shadow: 0 30px 60px -26px rgba(30,15,3,.8); }
+  .H4 .panel > div { display: grid; grid-template-columns: 56px 1fr; gap: 6px 18px; padding: 20px 0; border-top: 1px solid rgba(242,233,212,.22); } .H4 .panel > div:first-child { border-top: 0; padding-top: 0; } .H4 .panel > div:last-child { padding-bottom: 0; }
+  .H4 .panel .k { font: 600 34px Lora; color: #e8845a; line-height: 1; } .H4 .panel b.t { color: #fff; } .H4 .panel p.d { color: #cdbf9f; grid-column: 2; }
+</style>
+</head>
+<body>
+<nav class="menu"><a href="#H1">1 · Hoja</a><a href="#H2">2 · Tinta directa</a><a href="#H3">3 · Leyenda</a><a href="#H4">4 · Bloque oscuro</a></nav>
+
+<section class="op H1" id="H1"><div class="rot"><b>OPCIÓN 1</b> · Hoja de papel clavada al mapa</div>
+ <div class="pos hoja"><div class="n">01 / 09 — Sobre mí</div><h2>Perfil</h2><p class="lead">Acompaño a usuarios y equipos técnicos para que los sistemas funcionen: atiendo incidentes, valido funcionalidades, documento soluciones y coordino con desarrollo y QA. Mi diferencial es que también construyo: he desarrollado sistemas completos para negocios reales, así que entiendo el problema desde el usuario hasta el código.</p></div>
+ <div class="pos tres"><div><b class="t">Soporte y seguimiento</b><p class="d">Atiendo incidentes, los diagnostico y los sigo hasta cerrarlos.</p></div><div><b class="t">Validación funcional</b><p class="d">Compruebo que cada solución haga lo esperado, con casos reales.</p></div><div><b class="t">Documentación</b><p class="d">Dejo procedimientos escritos para que se puedan continuar.</p></div><div><b class="t">Coordinación técnica</b><p class="d">Hablo el idioma del usuario y el del equipo de desarrollo y QA.</p></div></div></section>
+
+<section class="op H2" id="H2"><div class="clara"></div><div class="rot"><b>OPCIÓN 2</b> · Tinta directa, sin cajas</div>
+ <div class="pos texto"><div class="n">01 / 09 — Sobre mí</div><h2>Perfil</h2><p class="lead">Acompaño a usuarios y equipos técnicos para que los sistemas funcionen. Como también construyo, entiendo el problema desde el usuario hasta el código.</p><div class="items"><div><b class="t">Soporte y seguimiento</b><p class="d">Atiendo incidentes, los diagnostico y los sigo hasta cerrarlos.</p></div><div><b class="t">Validación funcional</b><p class="d">Compruebo que cada solución haga lo esperado, con casos reales.</p></div><div><b class="t">Documentación</b><p class="d">Dejo procedimientos escritos para que se puedan continuar.</p></div><div><b class="t">Coordinación técnica</b><p class="d">Hablo el idioma del usuario y el del equipo de desarrollo y QA.</p></div></div></div></section>
+
+<section class="op H3" id="H3"><div class="rot"><b>OPCIÓN 3</b> · Leyenda de plano</div>
+ <div class="pos titulo"><div class="n">01 / 09 — Sobre mí</div><h2 style="margin-top:12px">Perfil</h2><p class="lead">Acompaño a usuarios y equipos técnicos para que los sistemas funcionen. Como también construyo, entiendo el problema desde el usuario hasta el código.</p></div>
+ <div class="pos ley"><div><h3>Leyenda</h3><div class="fila"><svg viewBox="0 0 40 40"><path d="M7 22v-3a13 13 0 0 1 26 0v3"/><rect x="5" y="22" width="6" height="9" rx="2"/><rect x="29" y="22" width="6" height="9" rx="2"/><path d="M32 31c0 3-3 4-7 4"/></svg><div><b class="t">Soporte y seguimiento</b><p class="d">Atiendo incidentes, los diagnostico y los sigo hasta cerrarlos.</p></div></div><div class="fila"><svg viewBox="0 0 40 40"><rect x="10" y="6" width="20" height="28" rx="3"/><path d="m15 20 4 4 7-8"/></svg><div><b class="t">Validación funcional</b><p class="d">Compruebo que cada solución haga lo esperado, con casos reales.</p></div></div><div class="fila"><svg viewBox="0 0 40 40"><path d="M10 5h14l7 7v23H10z"/><path d="M24 5v8h7M15 21h12M15 27h12"/></svg><div><b class="t">Documentación</b><p class="d">Dejo procedimientos escritos para que se puedan continuar.</p></div></div><div class="fila"><svg viewBox="0 0 40 40"><circle cx="14" cy="15" r="5"/><circle cx="28" cy="14" r="4"/><path d="M5 33a9 9 0 0 1 18 0M24 25a7 7 0 0 1 12 6"/></svg><div><b class="t">Coordinación técnica</b><p class="d">Hablo el idioma del usuario y el del equipo de desarrollo y QA.</p></div></div></div></div></section>
+
+<section class="op H4" id="H4"><div class="rot"><b>OPCIÓN 4</b> · Bloque sólido de contraste</div>
+ <div class="pos titulo"><div class="n">01 / 09 — Sobre mí</div><h2 style="margin-top:12px">Perfil</h2><p class="lead">Acompaño a usuarios y equipos técnicos para que los sistemas funcionen. Como también construyo, entiendo el problema desde el usuario hasta el código.</p></div>
+ <div class="pos panel"><div><span class="k">01</span><b class="t">Soporte y seguimiento</b><p class="d">Atiendo incidentes, los diagnostico y los sigo hasta cerrarlos.</p></div><div><span class="k">02</span><b class="t">Validación funcional</b><p class="d">Compruebo que cada solución haga lo esperado, con casos reales.</p></div><div><span class="k">03</span><b class="t">Documentación</b><p class="d">Dejo procedimientos escritos para que se puedan continuar.</p></div><div><span class="k">04</span><b class="t">Coordinación técnica</b><p class="d">Hablo el idioma del usuario y el del equipo de desarrollo y QA.</p></div></div></section>
+</body>
+</html>
