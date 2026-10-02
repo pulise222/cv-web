@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>Opción F · Terreno (mapa 3D monocromo)</title>
+<title>Juan Sebastián Pulido Bojacá · Portafolio</title>
+<meta name="description" content="Analista de soporte y soluciones tecnológicas. Portafolio en forma de mapa: perfil, experiencia, proyectos, conocimientos e IA aplicada.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..600&family=DM+Sans:ital,opsz,wght@0,9..40,400..600;1,9..40,400&family=JetBrains+Mono:wght@400;500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
 <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }</script>
@@ -195,6 +196,8 @@
     .fila-mini { grid-template-columns: 1fr 1fr; } .mini span { display: none; } .tarj { aspect-ratio: 16/6; } .conoc { position: fixed !important; left: 12px !important; right: 12px !important; bottom: 56px !important; top: auto !important; width: auto !important; max-height: 60vh; overflow: auto; }
     .menu span { display: none; } #pie { display: none; } #guia { bottom: 16px; } #nav3 { display: none; } #progMov { display: block; } #brujula { display: none; } #velo { inset: auto 0 0 0; width: auto; height: 62vh; background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 92%, transparent), transparent); -webkit-mask-image: linear-gradient(0deg, #000 55%, transparent); mask-image: linear-gradient(0deg, #000 55%, transparent); } .punto { width: 46px; height: 46px; margin: -23px 0 0 -23px; font-size: 15px; }
   }
+  /* «Descargar HV» queda oculto hasta publicar el PDF */
+  a[href="HV.pdf"] { display: none !important; }
 </style>
 </head>
 <body>
@@ -677,6 +680,11 @@ $('#mMapa').onclick = () => { $('#lista').classList.remove('abierta'); $('#mMapa
 document.querySelectorAll('.menu [data-i]').forEach((b) => b.onclick = () => { guardarIdioma(b.dataset.i); pintarTextos(b.dataset.i) })
 geom(); alScroll(); pSuave = pMeta; aplicarTema(tema); pintarTextos(idiomaInicial()); const _msInit = Math.round(performance.now() - _t0); bucle()
 window.__cv = { saltar: (p) => { pMeta = pSuave = p; scrollTo(0, p * PASO) }, marcas: _marcas, estado: () => ({ msTerreno: _msInit, pSuave, n: N, lineas: Object.fromEntries(Object.entries(lineas).map(([k, v]) => [k, v.length / 6])) }) }
+document.addEventListener('error', (e) => {
+  const t = e.target
+  if (t.tagName === 'VIDEO') { const m = t.closest('.media'); if (m) { m.className = 'media'; m.removeAttribute('style'); m.style.cssText = 'display:grid;place-items:center;text-align:center;padding:20px;background:rgba(43,32,19,.08);border:1px dashed var(--line);box-shadow:none'; m.innerHTML = '<span style="font:500 11px JetBrains Mono;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)">Vista previa próximamente</span>' } }
+  if (t.tagName === 'IMG' && t.closest('.tarj')) { t.style.display = 'none'; t.closest('.tarj').style.background = 'linear-gradient(135deg,#6b4a2a,#2b2013)' }
+}, true)
 </script>
 </body>
 </html>
