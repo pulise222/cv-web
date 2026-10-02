@@ -1,0 +1,43 @@
+# Publica el portafolio en GitHub Pages cada vez que se sube un cambio a «main».
+# Activación (una sola vez): Settings → Pages → Build and deployment → Source: GitHub Actions.
+name: Publicar portafolio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Es un sitio estático: no hay que compilar nada, solo se separan los archivos que se publican
+      - name: Preparar los archivos del sitio
+        run: |
+          mkdir _sitio
+          cp index.html contenido.js _sitio/
+          cp -r media _sitio/media
+          touch _sitio/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _sitio
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4
