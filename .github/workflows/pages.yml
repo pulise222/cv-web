@@ -27,6 +27,8 @@ jobs:
           mkdir _sitio
           cp index.html contenido.js _sitio/
           cp -r media _sitio/media
+          # GitHub Pages guarda los archivos en caché ~10 min: se les pone la versión del commit para que cada cambio de texto se vea de inmediato
+          sed -i "s#contenido.js#contenido.js?v=${GITHUB_SHA}#" _sitio/index.html
           touch _sitio/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
