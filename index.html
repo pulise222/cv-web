@@ -270,6 +270,9 @@
   .tl .mb { display: inline-grid; place-items: center; min-width: 15px; height: 15px; padding: 0 3px; border-radius: 3px; color: #fff; font: 700 8px/1 "JetBrains Mono"; font-style: normal; letter-spacing: 0; flex: none; }
   .tec.herr { margin-top: 10px; }
   .info .hint { font: italic 400 clamp(13px, calc(1.1 * var(--u)), 16px) "Lora"; color: var(--soft); margin: 0 18px 0 -8px; white-space: nowrap; }
+  /* Contacto: iconos de Gmail y WhatsApp */
+  .ci { width: 1em; height: 1em; vertical-align: -.12em; margin-right: .45em; }
+  .info .correo { display: inline-block; } .info .tel { display: inline-block; font-size: clamp(17px, calc(1.8 * var(--u)), 26px); }
   @media (max-width: 860px) {
     .info { inset: auto 0 52px 0; max-height: 64vh; overflow: hidden; padding: 0 12px; }
     .blq { position: relative !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; width: auto !important; margin: 0 0 8px; }
@@ -306,7 +309,7 @@
 <svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><svg id="sigue" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 7 7 7-7"/><path d="m5 14 7 7 7-7" opacity=".5"/></svg><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
-<script src="contenido.js?v=1791045538"></script>
+<script src="contenido.js?v=1791045996"></script>
 <script type="module">
 import * as THREE from 'three'
 await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)))   // deja que la pantalla de carga se pinte antes del cálculo pesado
@@ -592,7 +595,7 @@ function contenidos(i) {
       + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}</div>`, 'aba', 'left:4vw;bottom:9vh;width:34vw', .1, 'sec')
       + IAPRO[i].map((x, k) => B(`<div class="ic">${ICONO_IA[k]}</div><h3>${x.t}</h3><p>${x.d}</p><div class="etiq">${x.tags.map((g) => `<span>${g}</span>`).join('')}</div>`, ['arr', 'der', 'izq', 'aba'][k], `left:${k % 2 ? 71 : 45}vw;top:${k < 2 ? 12 : 50}vh;width:23vw;--c:${x.c}`, k * .03, 'panel iac')).join(''),
     // 10 contacto
-    B(`${cab(10)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2>`, 'mapa', 'left:4vw;top:16vh;width:56vw', 0) + B(`<p style="max-width:42ch">${c.contactoTexto}</p><p style="margin-top:16px"><a class="correo" href="mailto:${c.correo}">${c.correo}</a></p><p style="margin-top:10px"><a class="tel" href="tel:+57${c.telefono.replace(/\s/g, '')}">${c.telefono}</a></p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:50vh;width:46vw', .08, 'panel cartela') + B(`<a class="btn" href="${c.github}" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:4vw;bottom:13vh', .14),
+    B(`${cab(10)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2>`, 'mapa', 'left:4vw;top:16vh;width:56vw', 0) + B(`<p style="max-width:42ch">${c.contactoTexto}</p><p style="margin-top:16px"><a class="correo" href="mailto:${c.correo}"><img class="ci" src="https://cdn.simpleicons.org/gmail/EA4335" alt="Gmail">${c.correo}</a></p><p style="margin-top:12px"><a class="tel" href="https://wa.me/57${c.telefono.replace(/\s/g, '')}" target="_blank" rel="noopener"><img class="ci" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp">${c.telefono}</a></p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:50vh;width:46vw', .08, 'panel cartela') + B(`<a class="btn" href="${c.github}" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:4vw;bottom:13vh', .14),
   ]
 }
 
