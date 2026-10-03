@@ -559,14 +559,14 @@ function contenidos(i) {
     // 2 experiencia
     B(`${cab(2)}<h2>${c.expTitulo}</h2>`, 'arr', 'right:5.4vw;top:14vh;width:46vw', 0) + c.exp.map((e, k) => B(`<div class="n">${e[2]}</div><h3>${e[0]}</h3><p style="color:var(--soft);margin-bottom:6px">${e[1]}</p><p>${e[3]}</p>`, k ? 'aba' : 'der', `right:5.4vw;top:${k ? 58 : 31}vh;width:46vw`, .06 + k * .08, 'panel')).join(''),
     // 3 proyectos (tarjetas con las capturas a color)
-    B(`${cab(3)}<h2>${c.proyTitulo}</h2><p style="max-width:48ch">${c.proyIntro}</p>`, 'izq', 'left:4vw;top:14vh;width:46vw', 0) + [2, 1, 0, 3].map((pi, k) => { const p = c.proy[pi]; return B(`<a class="tarj" data-ir="${4 + k}"><img src="${MEDIA[p.n].img}" alt=""><span><i class="num">${k + 1}</i><b>${p.nombre}</b><small>${p.tipo}</small></span></a>`, ['aba', 'arr', 'arr', 'der'][k], `left:${4 + k * 22.6}vw;bottom:8vh;width:20.6vw`, .06 + k * .07) }).join(''),
+    B(`${cab(3)}<h2>${c.proyTitulo}</h2><p style="max-width:48ch">${c.proyIntro}</p>`, 'izq', 'left:4vw;top:14vh;width:46vw', 0) + [2, 1, 0, 3].map((pi, k) => { const p = c.proy[pi]; return B(`<a class="tarj" data-ir="${4 + k}"><img src="${MEDIA[p.n].img}" alt=""><span><i class="num">${k + 1}</i><b>${p.nombre}</b><small>${p.tipo}</small></span></a>`, ['aba', 'arr', 'arr', 'der'][k], `left:${4 + k * 22.6}vw;bottom:8vh;width:20.6vw`, k * .03) }).join(''),
     obra(4, c.proy[2]), obra(5, c.proy[1]), obra(6, c.proy[0]), obra(7, c.proy[3]),
     // 8 conocimientos (botones en el mapa + detalle con logos a color)
     B(`${cab(8)}<h2>${R.conoc}</h2><p style="max-width:34ch">${t.toca}</p>`, 'izq', 'left:4vw;top:15vh;width:36vw', 0) + B(`<p style="color:var(--soft)">${c.estudios[0]}<br>${c.estudios[1]}<br>${c.idiomas}</p>`, 'aba', 'left:4vw;bottom:8vh;width:34vw', .1, 'panel sec') + `<div class="blq panel conoc" data-de="conoc" style="right:5.4vw;top:12vh;width:52vw"></div>`,
     // 9 IA aplicada
     B(`${cab(9)}<h2>${c.iaTitulo}</h2><p class="cita">“${c.iaIntro}”</p>`, 'izq', 'left:4vw;top:13vh;width:34vw', 0)
-      + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}</div>`, 'aba', 'left:4vw;bottom:9vh;width:34vw', .4, 'sec fase2')
-      + IAPRO[i].map((x, k) => B(`<div class="ic">${ICONO_IA[k]}</div><h3>${x.t}</h3><p>${x.d}</p><div class="etiq">${x.tags.map((g) => `<span>${g}</span>`).join('')}</div>`, ['arr', 'der', 'izq', 'aba'][k], `left:${k % 2 ? 71 : 45}vw;top:${k < 2 ? 12 : 50}vh;width:23vw;--c:${x.c}`, k < 2 ? .05 + k * .06 : .3 + (k - 2) * .05, 'panel iac' + (k < 2 ? '' : ' fase2'))).join(''),
+      + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}</div>`, 'aba', 'left:4vw;bottom:9vh;width:34vw', .1, 'sec')
+      + IAPRO[i].map((x, k) => B(`<div class="ic">${ICONO_IA[k]}</div><h3>${x.t}</h3><p>${x.d}</p><div class="etiq">${x.tags.map((g) => `<span>${g}</span>`).join('')}</div>`, ['arr', 'der', 'izq', 'aba'][k], `left:${k % 2 ? 71 : 45}vw;top:${k < 2 ? 12 : 50}vh;width:23vw;--c:${x.c}`, k * .03, 'panel iac')).join(''),
     // 10 contacto
     B(`${cab(10)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2>`, 'mapa', 'left:4vw;top:16vh;width:56vw', 0) + B(`<p style="max-width:42ch">${c.contactoTexto}</p><p style="margin-top:16px"><a class="correo" href="mailto:${c.correo}">${c.correo}</a></p><p style="margin-top:10px"><a class="tel" href="tel:+57${c.telefono.replace(/\s/g, '')}">${c.telefono}</a></p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:50vh;width:46vw', .08, 'panel cartela') + B(`<a class="btn" href="${c.github}" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:4vw;bottom:13vh', .14),
   ]
@@ -705,12 +705,16 @@ function bucle() {
   capasParallax()
   colocar(pSuave); actualizarCursor(reloj); renderer?.render(escena, cam); pintarUI(); raf = requestAnimationFrame(bucle)
 }
-const alScroll = () => { pMeta = clamp(scrollY / PASO, 0, N - 1) }
-const ir = (k) => scrollTo({ top: clamp(k, 0, N - 1) * PASO, behavior: 'smooth' })
+/* destino: a dónde va la última flecha o clic. Así, varias pulsaciones seguidas se acumulan en vez de calcular desde una posición a medio camino. */
+let destino = null, destinoT = 0   // destinoT: cuándo fue la última pulsación; pasado un rato el destino caduca
+const vigente = () => (destino !== null && performance.now() - destinoT < 2200 ? destino : null)
+const alScroll = () => { pMeta = clamp(scrollY / PASO, 0, N - 1); if (destino !== null && Math.abs(pMeta - destino) < .03) destino = null }
+addEventListener('wheel', () => { destino = null }, { passive: true }); addEventListener('touchstart', () => { destino = null }, { passive: true })
+const irA = (x) => { destino = clamp(x, 0, N - 1); destinoT = performance.now(); scrollTo({ top: destino * PASO, behavior: 'smooth' }) }
+const ir = irA
 const TIENE2 = (k) => !!document.querySelector(`#infos .info[data-k="${k}"] .fase2`)
-const irA = (x) => scrollTo({ top: clamp(x, 0, N - 1) * PASO, behavior: 'smooth' })
-function siguiente() { const k = Math.floor(pMeta + .04), f = pMeta - k; if (k < N - 1 && TIENE2(k) && f < .12) irA(k + .27); else irA(k + 1) }
-function anterior() { const k = Math.floor(pMeta + .04), f = pMeta - k; if (f > .16) irA(k); else irA(k - 1) }
+function siguiente() { const b = vigente() ?? pMeta, k = Math.floor(b + .04), f = b - k; if (k < N - 1 && TIENE2(k) && f < .12) irA(k + .27); else irA(k + 1) }
+function anterior() { const b = vigente() ?? pMeta, k = Math.floor(b + .04), f = b - k; if (f > .16) irA(k); else irA(k - 1) }
 
 
 
@@ -830,7 +834,7 @@ function actualizarCursor(t) {
     ctxT.globalAlpha = .26; ctxT.beginPath(); ctxT.arc(ratonPx, ratonPy, clamp(vel * .13, 1, 3.2), 0, 6.283); ctxT.fill(); ctxT.globalAlpha = 1
   }
 }
-addEventListener('keydown', (e) => { const k = Math.round(pMeta); if (['ArrowDown', 'PageDown', 'ArrowRight'].includes(e.key)) { e.preventDefault(); siguiente() } if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); ir(k - 1) } if (e.key === 'Escape') { $('#indice').classList.remove('abierto'); $('#visor').classList.remove('abierto'); cerrarConoc() } })
+addEventListener('keydown', (e) => { if (e.target.closest?.('input, textarea, select')) return; if (['ArrowDown', 'PageDown', 'ArrowRight'].includes(e.key)) { e.preventDefault(); siguiente() } if (['ArrowUp', 'PageUp', 'ArrowLeft'].includes(e.key)) { e.preventDefault(); anterior() } if (e.key === 'Home') { e.preventDefault(); ir(0) } if (e.key === 'End') { e.preventDefault(); ir(N - 1) } if (e.key === 'Escape') { $('#indice').classList.remove('abierto'); $('#visor').classList.remove('abierto'); cerrarConoc() } })
 $('#bPrev').onclick = anterior; $('#bNext').onclick = siguiente
 document.addEventListener('click', (e) => {
   const pt = e.target.closest('.punto'), cv = e.target.closest('[data-conoc]'), cc = e.target.closest('[data-cerrar]')
@@ -845,7 +849,7 @@ $('#mLista').onclick = () => { $('#lista').classList.add('abierta'); $('#mLista'
 $('#mMapa').onclick = () => { $('#lista').classList.remove('abierta'); $('#mMapa').classList.add('on'); $('#mLista').classList.remove('on') }
 document.querySelectorAll('.menu [data-i]').forEach((b) => b.onclick = () => { guardarIdioma(b.dataset.i); pintarTextos(b.dataset.i) })
 geom(); alScroll(); pSuave = pMeta; aplicarTema(tema); pintarTextos(idiomaInicial()); const _msInit = Math.round(performance.now() - _t0); bucle(); setTimeout(() => { const c = document.getElementById('cargando'); if (c) { c.classList.add('fuera'); setTimeout(() => c.remove(), 900) } }, Math.max(250, 1400 - performance.now()))
-window.__cv = { saltar: (p) => { pMeta = pSuave = p; scrollTo(0, p * PASO) }, marcas: _marcas, estado: () => ({ msTerreno: _msInit, pSuave, n: N, lineas: Object.fromEntries(Object.entries(lineas).map(([k, v]) => [k, v.length / 6])) }) }
+window.__cv = { destino: () => [destino, pMeta], saltar: (p) => { pMeta = pSuave = p; scrollTo(0, p * PASO) }, marcas: _marcas, estado: () => ({ msTerreno: _msInit, pSuave, n: N, lineas: Object.fromEntries(Object.entries(lineas).map(([k, v]) => [k, v.length / 6])) }) }
 document.addEventListener('error', (e) => {
   const t = e.target
   if (t.tagName === 'VIDEO') { const m = t.closest('.media'); if (m) { m.className = 'media'; m.removeAttribute('style'); m.style.cssText = 'display:grid;place-items:center;text-align:center;padding:20px;background:rgba(43,32,19,.08);border:1px dashed var(--line);box-shadow:none'; m.innerHTML = `<span style="font:500 11px JetBrains Mono;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)">${document.documentElement.lang === 'en' ? 'Preview coming soon' : 'Vista previa próximamente'}</span>` } }
