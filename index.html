@@ -229,11 +229,31 @@
   .info .n { letter-spacing: .24em; }
   .info h1, .info h2 { font-weight: 600; letter-spacing: -.028em; }
   .cita { font-weight: 400; letter-spacing: -.01em; }
+
+  /* ═══ Tamaños que se adaptan también al ALTO de la pantalla: --u es la unidad base y --fit la reduce solo si hace falta ═══ */
+  .info { --fit: 1; --u: calc(min(1vw, 1.75vh) * var(--fit)); }
+  .info h1 { font-size: clamp(32px, calc(6.4 * var(--u)), 104px); }
+  .info h2 { font-size: clamp(26px, calc(4.6 * var(--u)), 74px); }
+  .info h3 { font-size: clamp(15px, calc(1.6 * var(--u)), 24px); }
+  .info p { font-size: clamp(12.5px, calc(1.2 * var(--u)), 18px); }
+  .info .rol { font-size: clamp(16px, calc(1.9 * var(--u)), 28px); }
+  .info li { font-size: clamp(12px, calc(1.08 * var(--u)), 16px); }
+  .info .datos strong { font-size: clamp(26px, calc(3.8 * var(--u)), 60px); }
+  .blq.panel > p:first-child { font-size: clamp(15px, calc(1.62 * var(--u)), 25px); }
+  .info .mini b { font-size: clamp(26px, calc(3 * var(--u)), 48px) !important; }
+  .info .mini .nm { font-size: clamp(14px, calc(1.4 * var(--u)), 22px) !important; }
+  .info .mini span { font-size: clamp(12px, calc(.95 * var(--u)), 15px); }
+  .info .iac p { font-size: clamp(12px, calc(1.02 * var(--u)), 15.5px) !important; }
+  .info .cita { font-size: clamp(16px, calc(1.9 * var(--u)), 30px) !important; }
+  .info .correo { font-size: clamp(18px, calc(2.4 * var(--u)), 36px); }
+  .info .tarj b { font-size: clamp(15px, calc(1.8 * var(--u)), 28px); }
+  .info .btn { padding: calc(.9 * var(--u)) 0; }
   @media (max-width: 860px) {
     .info { inset: auto 0 52px 0; max-height: 64vh; overflow: hidden; padding: 0 12px; }
     .blq { position: relative !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; width: auto !important; margin: 0 0 8px; }
     .blq.sec { display: none; } .blq.panel { padding: 12px 14px; } .info li:nth-child(n+3) { display: none; } .media { max-height: 22vh; } .info h1 { font-size: 38px; } .info h2 { font-size: 28px; margin: 4px 0 6px; } .info p { font-size: 13px; }
     .fila-mini { grid-template-columns: 1fr 1fr; } .mini span { display: none; } .tarj { aspect-ratio: 16/6; } .conoc { position: fixed !important; left: 12px !important; right: 12px !important; bottom: 56px !important; top: auto !important; width: auto !important; max-height: 60vh; overflow: auto; }
+    .marca { font-size: 13.5px; line-height: 1.15; max-width: 42vw; } #bInicio { display: none; } .menu { gap: 14px; }
     .menu span { display: none; } #pie { display: none; } #guia { bottom: 16px; } #nav3 { display: none; } #progMov { display: block; } #brujula { display: none; } #velo { inset: auto 0 0 0; width: auto; height: 62vh; background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 92%, transparent), transparent); -webkit-mask-image: linear-gradient(0deg, #000 55%, transparent); mask-image: linear-gradient(0deg, #000 55%, transparent); } .punto { width: 46px; height: 46px; margin: -23px 0 0 -23px; font-size: 15px; }
   }
   /* «Descargar HV» queda oculto hasta publicar el PDF */
@@ -454,16 +474,16 @@ const CONOC = {
   es: [
     { t: 'Lenguajes', d: 'Con lo que escribo, estructuro y consulto datos.', c: '#3b7dd8', logos: [['HTML', SI('html5', 'E34F26')], ['CSS', SI('css', '1572B6')], ['JavaScript', SI('javascript', 'F7DF1E')], ['TypeScript', SI('typescript', '3178C6')], ['Python', SI('python', '3776AB')], ['SQL', SI('postgresql', '4169E1')]] },
     { t: 'Front-end', d: 'Interfaces claras, accesibles y que funcionan en cualquier pantalla.', c: '#e0662f', logos: [['React', SI('react', '61DAFB')], ['Angular', SI('angular', 'DD0031')], ['Vite', SI('vite', '646CFF')], ['Tailwind CSS', SI('tailwindcss', '06B6D4')], ['Figma', SI('figma', 'F24E1E')]] },
-    { t: 'Back-end y datos', d: 'APIs, reglas de negocio y bases de datos que se pueden probar.', c: '#3f9b6a', logos: [['Node.js', SI('nodedotjs', '5FA04E')], ['Express', SI('express', '3a3a3a')], ['Prisma', SI('prisma', '2D3748')], ['PostgreSQL', SI('postgresql', '4169E1')], ['Django', SI('django', '092E20')], ['Git', SI('git', 'F05032')]] },
-    { t: 'Soporte y gestión', d: 'Seguimiento de casos, validación funcional y documentación clara.', c: '#8a63d2', logos: [['Azure DevOps', INS('∞', '#0078D4')], ['Power BI', INS('▮▮', '#F2C811')], ['Notion', SI('notion', '1f1f1f')], ['Excel', INS('X', '#217346')], ['Word', INS('W', '#2B579A')], ['PowerPoint', INS('P', '#C43E1C')]] },
-    { t: 'IA y automatización', d: 'Dirijo asistentes de IA y verifico cada resultado con pruebas.', c: '#d4a017', logos: [['Claude', SI('claude', 'D97757')], ['Automatización', INS('⚙', '#6b5b45')], ['Pruebas', INS('✓', '#3f9b6a')], ['Documentación', INS('✎', '#3b7dd8')]] },
+    { t: 'Back-end y datos', d: 'APIs, reglas de negocio y bases de datos que se pueden probar.', c: '#3f9b6a', logos: [['Node.js', SI('nodedotjs', '5FA04E')], ['Express', SI('express', '3a3a3a')], ['Prisma', SI('prisma', '2D3748')], ['PostgreSQL', SI('postgresql', '4169E1')], ['Django', SI('django', '092E20')], ['Git', SI('git', 'F05032')], ['GitHub Actions', SI('githubactions', '2088FF')]] },
+    { t: 'Soporte y gestión', d: 'Tickets de soporte N1 bajo SLA, seguimiento de casos y documentación clara.', c: '#8a63d2', logos: [['Jira', SI('jira', '0052CC')], ['Azure DevOps', INS('∞', '#0078D4')], ['Power BI', INS('▮▮', '#F2C811')], ['Notion', SI('notion', '1f1f1f')], ['Excel', INS('X', '#217346')], ['Word', INS('W', '#2B579A')], ['PowerPoint', INS('P', '#C43E1C')]] },
+    { t: 'IA y automatización', d: 'Uso IA para optimizar procesos, automatizar tareas recurrentes y asistir el desarrollo y la documentación.', c: '#d4a017', logos: [['ChatGPT', INS('GPT', '#10A37F')], ['Claude', SI('claude', 'D97757')], ['Gemini', SI('googlegemini', '8E75B2')], ['Automatización', INS('⚙', '#6b5b45')], ['Documentación', INS('✎', '#3b7dd8')]] },
   ],
   en: [
     { t: 'Languages', d: 'What I write, structure and query data with.', c: '#3b7dd8', logos: [['HTML', SI('html5', 'E34F26')], ['CSS', SI('css', '1572B6')], ['JavaScript', SI('javascript', 'F7DF1E')], ['TypeScript', SI('typescript', '3178C6')], ['Python', SI('python', '3776AB')], ['SQL', SI('postgresql', '4169E1')]] },
     { t: 'Front-end', d: 'Clear, accessible interfaces that work on any screen.', c: '#e0662f', logos: [['React', SI('react', '61DAFB')], ['Angular', SI('angular', 'DD0031')], ['Vite', SI('vite', '646CFF')], ['Tailwind CSS', SI('tailwindcss', '06B6D4')], ['Figma', SI('figma', 'F24E1E')]] },
-    { t: 'Back-end & data', d: 'APIs, business rules and databases that can be tested.', c: '#3f9b6a', logos: [['Node.js', SI('nodedotjs', '5FA04E')], ['Express', SI('express', '3a3a3a')], ['Prisma', SI('prisma', '2D3748')], ['PostgreSQL', SI('postgresql', '4169E1')], ['Django', SI('django', '092E20')], ['Git', SI('git', 'F05032')]] },
-    { t: 'Support & management', d: 'Case follow-up, functional validation and clear documentation.', c: '#8a63d2', logos: [['Azure DevOps', INS('∞', '#0078D4')], ['Power BI', INS('▮▮', '#F2C811')], ['Notion', SI('notion', '1f1f1f')], ['Excel', INS('X', '#217346')], ['Word', INS('W', '#2B579A')], ['PowerPoint', INS('P', '#C43E1C')]] },
-    { t: 'AI & automation', d: 'I direct AI assistants and verify every result with tests.', c: '#d4a017', logos: [['Claude', SI('claude', 'D97757')], ['Automation', INS('⚙', '#6b5b45')], ['Testing', INS('✓', '#3f9b6a')], ['Documentation', INS('✎', '#3b7dd8')]] },
+    { t: 'Back-end & data', d: 'APIs, business rules and databases that can be tested.', c: '#3f9b6a', logos: [['Node.js', SI('nodedotjs', '5FA04E')], ['Express', SI('express', '3a3a3a')], ['Prisma', SI('prisma', '2D3748')], ['PostgreSQL', SI('postgresql', '4169E1')], ['Django', SI('django', '092E20')], ['Git', SI('git', 'F05032')], ['GitHub Actions', SI('githubactions', '2088FF')]] },
+    { t: 'Support & management', d: 'Level 1 tickets under SLA, case follow-up and clear documentation.', c: '#8a63d2', logos: [['Jira', SI('jira', '0052CC')], ['Azure DevOps', INS('∞', '#0078D4')], ['Power BI', INS('▮▮', '#F2C811')], ['Notion', SI('notion', '1f1f1f')], ['Excel', INS('X', '#217346')], ['Word', INS('W', '#2B579A')], ['PowerPoint', INS('P', '#C43E1C')]] },
+    { t: 'AI & automation', d: 'I use AI to optimize processes, automate recurring tasks and assist development and documentation.', c: '#d4a017', logos: [['ChatGPT', INS('GPT', '#10A37F')], ['Claude', SI('claude', 'D97757')], ['Gemini', SI('googlegemini', '8E75B2')], ['Automation', INS('⚙', '#6b5b45')], ['Documentation', INS('✎', '#3b7dd8')]] },
   ],
 }
 const ISLOTES = ['h4', 'h1', 'h3', 'h2', 'h5']   // dónde vive cada botón en el mapa
@@ -488,21 +508,21 @@ function cerrarConoc() { conocIdx = -1; document.querySelectorAll('.punto').forE
 const ICONO_IA = [
   SVG('<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-.5-.3-1-.3-1.5 0-.8.6-1.4 1.4-1.4H17a4 4 0 0 0 4-4c0-5-4-9.5-9-9.5Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="14.5" cy="7" r="1"/>'),
   SVG('<path d="M8 6 2 12l6 6M16 6l6 6-6 6M13.5 4l-3 16"/>'),
-  SVG('<rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 8V5M9 13h.01M15 13h.01M9.5 16.5h5"/><circle cx="12" cy="3.6" r="1"/>'),
+  SVG('<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>'),
   SVG('<path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v4h-4"/><path d="m9.5 12 2 2 3-3.5"/>'),
 ]
 const IAPRO = {
   es: [
     { t: 'Diseño', c: '#e0662f', d: 'Exploro identidades, paletas y maquetas con IA y decido el resultado: así nacieron la identidad de Kairos y este portafolio.', tags: ['Identidad', 'Paletas', 'Maquetas'] },
-    { t: 'Desarrollo', c: '#3b7dd8', d: 'Construyo sistemas completos con asistentes de código y los verifico con pruebas automáticas: más de 370 en Kairos.', tags: ['Código', 'Pruebas', 'Revisión'] },
-    { t: 'Agentes', c: '#8a63d2', d: 'Diseño agentes de IA con instrucciones, herramientas y límites claros, para que hagan tareas repetitivas sin perder el control.', tags: ['Instrucciones', 'Herramientas', 'Límites'] },
-    { t: 'Automatización', c: '#3f9b6a', d: 'Automatizo procesos reales: copias y Excel de respaldo diarios, reportes y validaciones que antes eran manuales.', tags: ['Respaldos', 'Reportes', 'Validaciones'] },
+    { t: 'Desarrollo', c: '#3b7dd8', d: 'Uso la IA como asistente en el desarrollo de sistemas y verifico cada resultado con pruebas automáticas: más de 370 en Kairos.', tags: ['Código', 'Pruebas', 'Revisión'] },
+    { t: 'Documentación', c: '#8a63d2', d: 'Genero y reviso documentación con IA: manuales de usuario, guías de instalación y casos de prueba.', tags: ['Manuales', 'Guías', 'Casos de prueba'] },
+    { t: 'Automatización', c: '#3f9b6a', d: 'Optimizo procesos y automatizo tareas recurrentes: copias y Excel de respaldo diarios, reportes y validaciones.', tags: ['Procesos', 'Respaldos', 'Reportes'] },
   ],
   en: [
     { t: 'Design', c: '#e0662f', d: 'I explore identities, palettes and mock-ups with AI and I make the final call: that is how the Kairos identity and this portfolio were born.', tags: ['Identity', 'Palettes', 'Mock-ups'] },
-    { t: 'Development', c: '#3b7dd8', d: 'I build complete systems with coding assistants and verify them with automated tests: over 370 in Kairos.', tags: ['Code', 'Tests', 'Review'] },
-    { t: 'Agents', c: '#8a63d2', d: 'I design AI agents with clear instructions, tools and limits, so they handle repetitive tasks without losing control.', tags: ['Instructions', 'Tools', 'Limits'] },
-    { t: 'Automation', c: '#3f9b6a', d: 'I automate real processes: daily backups and Excel exports, reports and validations that used to be manual.', tags: ['Backups', 'Reports', 'Validation'] },
+    { t: 'Development', c: '#3b7dd8', d: 'I use AI as an assistant when building systems and verify every result with automated tests: over 370 in Kairos.', tags: ['Code', 'Tests', 'Review'] },
+    { t: 'Documentation', c: '#8a63d2', d: 'I generate and review documentation with AI: user manuals, installation guides and test cases.', tags: ['Manuals', 'Guides', 'Test cases'] },
+    { t: 'Automation', c: '#3f9b6a', d: 'I optimize processes and automate recurring tasks: daily backups and Excel exports, reports and validations.', tags: ['Processes', 'Backups', 'Reports'] },
   ],
 }
 const PASOS = { es: ['Definir el problema', 'Dirigir a la IA', 'Verificar el resultado', 'Documentar y entregar'], en: ['Define the problem', 'Direct the AI', 'Verify the result', 'Document & deliver'] }
@@ -699,6 +719,30 @@ function envolverPalabras() {
     b.style.setProperty('--n', Math.max(n, 1))
   })
 }
+
+/* ── Acomodador: mide cada bloque y evita que un texto quede encima de otro o se salga de la pantalla ──
+   1) los bloques que se tocan en la misma columna se bajan lo justo; 2) si todo no cabe, se reduce la letra de esa parada (--fit). */
+function acomodar() {
+  if (movil()) { document.querySelectorAll('#infos .info').forEach((c) => c.style.setProperty('--fit', 1)); document.querySelectorAll('#infos .blq').forEach((b) => { b.style.top = ''; b.style.bottom = '' }); return }
+  const H = innerHeight, GAP = Math.max(10, H * .018), MARGEN = Math.max(34, H * .06)
+  document.querySelectorAll('#infos .info').forEach((cont) => {
+    const bl = [...cont.querySelectorAll('.blq')].filter((b) => b.dataset.de !== 'conoc')
+    bl.forEach((b) => { if (b.dataset.t0 === undefined) { b.dataset.t0 = b.style.top; b.dataset.b0 = b.style.bottom } })
+    const restaurar = () => bl.forEach((b) => { b.style.top = b.dataset.t0; b.style.bottom = b.dataset.b0 })
+    let fit = 1, tops = []
+    for (let it = 0; it < 14; it++) {
+      cont.style.setProperty('--fit', fit.toFixed(3)); restaurar()
+      const m = bl.map((b) => ({ b, t: b.offsetTop, h: b.offsetHeight, l: b.offsetLeft, w: b.offsetWidth }))
+      m.sort((x, y) => x.t - y.t)
+      m.forEach((a, i) => { a.nt = a.t; for (let j = 0; j < i; j++) { const c = m[j], ox = Math.min(a.l + a.w, c.l + c.w) - Math.max(a.l, c.l); if (ox > 6 && a.nt < c.nt + c.h + GAP && a.t + a.h > c.t) a.nt = c.nt + c.h + GAP } })
+      tops = m
+      const peor = Math.max(...m.map((a) => a.nt + a.h), 0)
+      if (peor <= H - MARGEN || fit <= .6) break
+      fit = Math.max(.6, fit * .94)
+    }
+    tops.forEach((a) => { if (Math.abs(a.nt - a.t) > 1) { a.b.style.top = a.nt + 'px'; a.b.style.bottom = 'auto' } })
+  })
+}
 function pintarTextos(i) {
   idioma = i; document.documentElement.lang = i
   const H2 = contenidos(i)
@@ -715,9 +759,10 @@ function pintarTextos(i) {
   document.querySelectorAll('.menu [data-i]').forEach((b) => b.classList.toggle('on', b.dataset.i === i))
   envolverPalabras()
   construirAnclas(i)
+  acomodar(); document.fonts?.ready.then(acomodar)
 }
 addEventListener('scroll', alScroll, { passive: true })
-addEventListener('resize', () => { geom(); alScroll() })
+let _rz = 0; addEventListener('resize', () => { geom(); alScroll(); clearTimeout(_rz); _rz = setTimeout(acomodar, 120) })
 let ratonPx = -999, ratonPy = -999, ultimoMov = 0, enCanvas = false, objetivo = null
 addEventListener('pointermove', (e) => { ratonX = e.clientX / W - .5; ratonY = e.clientY / Hh - .5; ratonPx = e.clientX; ratonPy = e.clientY; ultimoMov = performance.now(); objetivo = e.target
   enCanvas = !e.target.closest('.blq.on, .punto, header, #indice, #lista, #modo, #pie, #nav3') })
@@ -784,7 +829,7 @@ geom(); alScroll(); pSuave = pMeta; aplicarTema(tema); pintarTextos(idiomaInicia
 window.__cv = { saltar: (p) => { pMeta = pSuave = p; scrollTo(0, p * PASO) }, marcas: _marcas, estado: () => ({ msTerreno: _msInit, pSuave, n: N, lineas: Object.fromEntries(Object.entries(lineas).map(([k, v]) => [k, v.length / 6])) }) }
 document.addEventListener('error', (e) => {
   const t = e.target
-  if (t.tagName === 'VIDEO') { const m = t.closest('.media'); if (m) { m.className = 'media'; m.removeAttribute('style'); m.style.cssText = 'display:grid;place-items:center;text-align:center;padding:20px;background:rgba(43,32,19,.08);border:1px dashed var(--line);box-shadow:none'; m.innerHTML = '<span style="font:500 11px JetBrains Mono;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)">Vista previa próximamente</span>' } }
+  if (t.tagName === 'VIDEO') { const m = t.closest('.media'); if (m) { m.className = 'media'; m.removeAttribute('style'); m.style.cssText = 'display:grid;place-items:center;text-align:center;padding:20px;background:rgba(43,32,19,.08);border:1px dashed var(--line);box-shadow:none'; m.innerHTML = `<span style="font:500 11px JetBrains Mono;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)">${document.documentElement.lang === 'en' ? 'Preview coming soon' : 'Vista previa próximamente'}</span>` } }
   if (t.tagName === 'IMG' && t.closest('.tarj')) { t.style.display = 'none'; t.closest('.tarj').style.background = 'linear-gradient(135deg,#6b4a2a,#2b2013)' }
 }, true)
 </script>
