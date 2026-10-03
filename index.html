@@ -26,13 +26,11 @@
   #grano { position: absolute; inset: -40px; will-change: transform; pointer-events: none; mix-blend-mode: multiply;
     background-image:
       radial-gradient(ellipse at center, transparent 55%, rgba(120,75,25,.26) 84%, rgba(70,40,10,.42) 100%),
-      linear-gradient(90deg, transparent 49.7%, rgba(70,45,15,.22) 50%, rgba(255,245,215,.35) 50.25%, transparent 50.6%),
-      linear-gradient(0deg, transparent 49.7%, rgba(70,45,15,.2) 50%, rgba(255,245,215,.3) 50.25%, transparent 50.6%),
       radial-gradient(circle at 18% 22%, rgba(120,80,30,.16), transparent 9%), radial-gradient(circle at 82% 70%, rgba(120,80,30,.14), transparent 11%), radial-gradient(circle at 64% 14%, rgba(110,70,25,.12), transparent 6%), radial-gradient(circle at 30% 84%, rgba(110,70,25,.13), transparent 8%),
       radial-gradient(circle at 12% 62%, rgba(90,55,20,.28), transparent .7%), radial-gradient(circle at 74% 38%, rgba(90,55,20,.25), transparent .6%), radial-gradient(circle at 46% 78%, rgba(90,55,20,.22), transparent .5%), radial-gradient(circle at 90% 18%, rgba(90,55,20,.25), transparent .6%), radial-gradient(circle at 36% 12%, rgba(90,55,20,.2), transparent .5%),
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='.006 .009' numOctaves='4' seed='3'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .28  0 0 0 0 .1  0 0 0 .55 -.1'/></filter><rect width='100%' height='100%' filter='url(%23m)'/></svg>"),
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 .38  0 0 0 0 .28  0 0 0 0 .15  0 0 0 .42 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    background-size: 100% 100%, 100% 100%, 100% 100%, auto, auto, auto, auto, auto, auto, auto, auto, auto, 1100px 1100px, 300px 300px; box-shadow: inset 0 0 80px 6px rgba(80,45,10,.26); opacity: .8; }
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='520' height='520'><filter id='m'><feTurbulence stitchTiles='stitch' type='fractalNoise' baseFrequency='.006 .009' numOctaves='4' seed='3'/><feColorMatrix values='0 0 0 0 .42  0 0 0 0 .28  0 0 0 0 .1  0 0 0 .55 -.1'/></filter><rect width='100%' height='100%' filter='url(%23m)'/></svg>"),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence stitchTiles='stitch' type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 .38  0 0 0 0 .28  0 0 0 0 .15  0 0 0 .42 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 100% 100%, auto, auto, auto, auto, auto, auto, auto, auto, auto, 100% 100%, 300px 300px; box-shadow: inset 0 0 80px 6px rgba(80,45,10,.26); opacity: .8; }
   :root[data-tema="oscuro"] #grano { mix-blend-mode: screen; opacity: .1; }
   #brujula { position: fixed; z-index: 29; top: 12px; left: 50%; margin-left: -23px; width: 46px; height: 46px; opacity: .8; pointer-events: none; } #brujula svg { width: 100%; height: 100%; transition: transform .1s linear; }
   .etq { position: absolute; left: 0; top: 0; white-space: nowrap; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; transition: opacity .35s; will-change: transform, opacity; text-shadow: 0 0 6px var(--bg), 0 0 6px var(--bg), 0 0 10px var(--bg); }
@@ -221,6 +219,7 @@
 </style>
 </head>
 <body>
+<div id="cargando" style="position:fixed;inset:0;z-index:200;background:#efe6d0;display:grid;place-items:center;transition:opacity .7s;font:italic 500 22px Lora,Georgia,serif;color:#55452f;letter-spacing:.04em">Dibujando el mapa…</div>
 <header><div class="marca t">Juan Sebastián Pulido Bojacá</div>
   <div class="menu"><button id="bInicio" data-ir="0">Inicio</button><button id="bMenu">Menú</button><span><button data-i="es">ES</button> / <button data-i="en">EN</button></span><button id="bTema" aria-label="Tema">◐</button></div></header>
 <div id="recorrido"><div id="escena"><canvas id="lienzo"></canvas><div id="grano"></div><div id="etiquetas"></div></div></div>
@@ -258,6 +257,14 @@ const ISLAS = {
 }
 const KS = 1.4, S = (x, z) => [3000 + (x - 3000) * KS, 2000 + (z - 2000) * KS]   // separa las islas con contenido; las decorativas lejanas no se tocan
 for (const k in ISLAS) if (!ISLAS[k].decor) { const q = S(ISLAS[k].cx, ISLAS[k].cy); ISLAS[k].cx = q[0]; ISLAS[k].cy = q[1] }
+/* Mar sin fin: islas y archipiélagos sin nombre repartidos por todo el mundo, sin pisar a las islas con contenido */
+{ const r = rng(2026), todas = () => Object.values(ISLAS); let n = 0, intentos = 0
+  while (n < 46 && intentos++ < 4000) {
+    const rx = 140 + r() * 380, ry = rx * (.55 + r() * .4), cx = X0 + 250 + r() * (X1 - X0 - 500), cy = Z0 + 250 + r() * (Z1 - Z0 - 500)
+    if (todas().some((o) => Math.hypot(o.cx - cx, o.cy - cy) < Math.max(o.rx, o.ry) + Math.max(rx, ry) * 1.9 + 380)) continue
+    const k = 'z' + n++; ISLAS[k] = { cx, cy, rx, ry, rot: r() * 3.1 - 1.5, seed: 500 + n, H: 26 + r() * 46, decor: 1 }
+    ISLAS[k].ph = Array.from({ length: 5 }, () => r() * 6.28); ISLAS[k].rough = .12 + r() * .07
+  } }
 for (const k in ISLAS) { const m = Math.max(ISLAS[k].rx, ISLAS[k].ry) * 2.9; ISLAS[k].alcance2 = m * m }
 for (const k in ISLAS) { const r = rng(ISLAS[k].seed); ISLAS[k].ph = Array.from({ length: 5 }, () => r() * 6.28); ISLAS[k].rough = .12 + r() * .07 }
 const mult = (I, a) => 1 + I.rough * (.5 * Math.sin(2 * a + I.ph[0]) + .36 * Math.sin(3 * a + I.ph[1]) + .24 * Math.sin(5 * a + I.ph[2]) + .08 * Math.sin(9 * a + I.ph[3]) + .04 * Math.sin(14 * a + I.ph[4]))
@@ -287,7 +294,7 @@ try { renderer = new THREE.WebGLRenderer({ canvas: lienzo, antialias: true, alph
 const escena = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 1, 50, 30000)
 const TEMAS = { claro: { bg: 0xefe6d0, ink: 0x2b2013, base: 0xefe6d0, ruta: 0xc4552d }, oscuro: { bg: 0x15110c, ink: 0xeadfc6, base: 0x15110c, ruta: 0xe8845a } }
 let tema = 'claro'; try { tema = localStorage.getItem('cv-tema') || 'claro' } catch {}
-const CELDA = 28, NX = Math.round((X1 - X0) / CELDA) + 1, NZ = Math.round((Z1 - Z0) / CELDA) + 1
+const CELDA = 32, NX = Math.round((X1 - X0) / CELDA) + 1, NZ = Math.round((Z1 - Z0) / CELDA) + 1
 const _marcas = {}; const marca = (n) => (_marcas[n] = Math.round(performance.now() - _t0))
 const H = new Float32Array(NX * NZ), SH = new Float32Array(NX * NZ)
 for (let j = 0; j < NZ; j++) for (let i = 0; i < NX; i++) { const [h, s] = relieve(X0 + i * CELDA, Z0 + j * CELDA); H[j * NX + i] = h; SH[j * NX + i] = s }
@@ -735,7 +742,7 @@ $('#bTema').onclick = () => aplicarTema(tema === 'claro' ? 'oscuro' : 'claro')
 $('#mLista').onclick = () => { $('#lista').classList.add('abierta'); $('#mLista').classList.add('on'); $('#mMapa').classList.remove('on') }
 $('#mMapa').onclick = () => { $('#lista').classList.remove('abierta'); $('#mMapa').classList.add('on'); $('#mLista').classList.remove('on') }
 document.querySelectorAll('.menu [data-i]').forEach((b) => b.onclick = () => { guardarIdioma(b.dataset.i); pintarTextos(b.dataset.i) })
-geom(); alScroll(); pSuave = pMeta; aplicarTema(tema); pintarTextos(idiomaInicial()); const _msInit = Math.round(performance.now() - _t0); bucle()
+geom(); alScroll(); pSuave = pMeta; aplicarTema(tema); pintarTextos(idiomaInicial()); const _msInit = Math.round(performance.now() - _t0); bucle(); setTimeout(() => { const c = document.getElementById('cargando'); if (c) { c.style.opacity = 0; setTimeout(() => c.remove(), 800) } }, 250)
 window.__cv = { saltar: (p) => { pMeta = pSuave = p; scrollTo(0, p * PASO) }, marcas: _marcas, estado: () => ({ msTerreno: _msInit, pSuave, n: N, lineas: Object.fromEntries(Object.entries(lineas).map(([k, v]) => [k, v.length / 6])) }) }
 document.addEventListener('error', (e) => {
   const t = e.target
