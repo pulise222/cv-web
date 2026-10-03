@@ -18,12 +18,12 @@ window.CV = {
     ],
     expTitulo: 'Experiencia',
     exp: [
-      ['Group COS (BPO · IPO)', 'Aprendiz SENA · Soporte técnico N1 y gestión de soluciones tecnológicas', 'Nov 2025 – Abr 2026', 'Atendí tickets de soporte de nivel 1 sobre aplicativos y sistemas internos, de forma remota y presencial, usando herramientas como Jira y Azure DevOps y bajo SLA, escalando a desarrollo y QA. Apoyé sistemas de visualización de métricas en Power BI y documenté procedimientos y soluciones.'],
+      ['Group COS (BPO · IPO)', 'Aprendiz SENA · Soporte técnico N1 y gestión de soluciones tecnológicas', 'Nov 2025 – Abr 2026', 'Atendí tickets de soporte de nivel 1 sobre aplicativos y sistemas internos, de forma remota y presencial, usando herramientas como Jira y Azure DevOps y bajo SLA, escalando a diferentes departamentos. Apoyé sistemas de visualización de métricas en Power BI y documenté procedimientos y soluciones.'],
       ['World Games', 'Administrador · Atención al cliente y operación', 'Feb 2022 – Nov 2023', 'Administré el establecimiento de productos tecnológicos, consolas y videojuegos: caja y finanzas, atención y asesoría a clientes, ventas, control de inventario y reposición.'],
     ],
     proyTitulo: 'Proyectos',
     proyIntro: 'Cuatro soluciones completas, cada una en su isla del mapa.',
-    proyVenta: 'Soy un desarrollador orientado a soluciones y a la atención a la interfaz y al diseño: cada proyecto parte de un problema real y termina en una interfaz clara, cuidada y agradable de usar.',
+    proyVenta: 'Soy un desarrollador orientado a soluciones y a la atención a la interfaz y al diseño: cada proyecto parte de un problema real y termina en una interfaz clara, cuidada y resolutiva.',
     proy: [
       { n: '01', nombre: 'Servicios Kairos', tipo: 'Sistema de ventas e inventario a la medida · cliente real', links: [['Demo en vivo', 'https://pulise222.github.io/kairos-gestion-demo/']], nota: 'Repositorio privado: es el sistema de un cliente real. La demo usa datos de ejemplo.',
         resumen: 'Mejoré los procesos de un establecimiento comercial con un sistema de ventas e inventario a la medida, que les dio mejor manejo de las finanzas y de la información, desde el levantamiento de requerimientos hasta la implementación.',
@@ -33,7 +33,7 @@ window.CV = {
         resumen: 'Un sistema adaptable a cualquier establecimiento: a partir del registro de productos e inventarios genera dashboards y apoya el manejo, la trazabilidad y las finanzas del negocio.',
         puntos: ['CRUD de productos, proveedores y usuarios, con roles y permisos validados en el servidor', 'Trazabilidad de cada movimiento de inventario y dinero en pesos enteros', 'Copias de seguridad automáticas y manual de usuario'],
         datos: [['2', 'roles de usuario'], ['0', 'dinero con decimales'], ['100%', 'sin internet']], tec: 'CRUD · React · TypeScript · Node.js · PostgreSQL' },
-      { n: '03', nombre: 'Jardín Sullivan', tipo: 'Mi proyecto · solución web de gestión', links: [['GitHub', 'https://github.com/pulise222/jardin-sullivan-gestion-crud'], ['Demo en vivo', 'https://pulise222.github.io/jardin-sullivan-demo/']],
+      { n: '03', nombre: 'Jardín Sullivan', tipo: 'Proyecto · solución web de gestión', links: [['GitHub', 'https://github.com/pulise222/jardin-sullivan-gestion-crud'], ['Demo en vivo', 'https://pulise222.github.io/jardin-sullivan-demo/']],
         resumen: 'Una web con CRUD completo para mejorar la administración de los datos y la comunicación de un jardín infantil: tres perfiles de usuario (administrador, profesor y acudiente) para gestionar asistencia, evaluación y boletines trimestrales, desde el análisis de necesidades hasta su implementación.',
         puntos: ['CRUD completo de estudiantes, cursos, materias, asistencia y evaluaciones', 'Información organizada y documentada para su uso y mantenimiento', 'Interfaz dinámica y adaptable al celular, con identidad propia'],
         datos: [['CRUD', 'gestión completa de datos']], tec: 'CRUD · React · Vite · Django · SQL' },

@@ -262,6 +262,14 @@
   @keyframes sigue { 0%, 100% { opacity: .2; transform: translateY(-2px); } 50% { opacity: .5; transform: translateY(3px); } }
   .info .venta { margin-top: 12px; max-width: 46ch; font-family: Lora, Georgia, serif; font-style: italic; color: var(--ink); }
   @media (prefers-reduced-motion: reduce) { #sigue { animation: none; opacity: .35; } }
+
+  /* Herramientas con logo pequeño */
+  .info .tec { color: color-mix(in srgb, var(--ink) 80%, var(--bg)); }
+  .tl { display: inline-flex; align-items: center; gap: 5px; margin: 0 14px 5px 0; white-space: nowrap; }
+  .tl .mi { width: 14px; height: 14px; object-fit: contain; flex: none; }
+  .tl .mb { display: inline-grid; place-items: center; min-width: 15px; height: 15px; padding: 0 3px; border-radius: 3px; color: #fff; font: 700 8px/1 "JetBrains Mono"; font-style: normal; letter-spacing: 0; flex: none; }
+  .tec.herr { margin-top: 10px; }
+  .info .hint { font: italic 400 clamp(13px, calc(1.1 * var(--u)), 16px) "Lora"; color: var(--soft); margin: 0 18px 0 -8px; white-space: nowrap; }
   @media (max-width: 860px) {
     .info { inset: auto 0 52px 0; max-height: 64vh; overflow: hidden; padding: 0 12px; }
     .blq { position: relative !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; width: auto !important; margin: 0 0 8px; }
@@ -298,7 +306,7 @@
 <svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><svg id="sigue" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 7 7 7-7"/><path d="m5 14 7 7 7-7" opacity=".5"/></svg><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
-<script src="contenido.js?v=1791043674"></script>
+<script src="contenido.js?v=1791045538"></script>
 <script type="module">
 import * as THREE from 'three'
 await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)))   // deja que la pantalla de carga se pinte antes del cálculo pesado
@@ -544,6 +552,13 @@ const IAPRO = {
 }
 const PASOS = { es: ['Definir el problema', 'Dirigir a la IA', 'Verificar el resultado', 'Documentar y entregar'], en: ['Define the problem', 'Direct the AI', 'Verify the result', 'Document & deliver'] }
 
+
+/* ── Logos pequeños de las herramientas (los que no existen en el catálogo se dibujan como una insignia de color) ── */
+const MINI = { 'React': ['react', '61DAFB'], 'TypeScript': ['typescript', '3178C6'], 'Node.js': ['nodedotjs', '5FA04E'], 'PostgreSQL': ['postgresql', '4169E1'], 'Vite': ['vite', '646CFF'], 'Django': ['django', '092E20'], 'HTML': ['html5', 'E34F26'], 'CSS': ['css', '1572B6'], 'JavaScript': ['javascript', 'F7DF1E'], 'Three.js': ['threedotjs', '2b2013'], 'Jira': ['jira', '0052CC'] }
+const MINIB = { 'CRUD': ['CRUD', '#3f9b6a'], 'SQL': ['SQL', '#4169E1'], 'Azure DevOps': ['∞', '#0078D4'], 'Excel': ['X', '#217346'], 'Microsoft Office': ['O', '#D83B01'] }
+const miniIco = (n) => MINI[n] ? `<img class="mi" src="${SI(MINI[n][0], MINI[n][1])}" alt="" loading="lazy" onerror="this.style.display='none'">` : MINIB[n] ? `<i class="mb" style="background:${MINIB[n][1]}">${MINIB[n][0]}</i>` : ''
+const chips = (lista) => lista.map((n) => `<span class="tl">${miniIco(n)}${n}</span>`).join('')
+
 /* ── Textos de cada parada ── */
 function contenidos(i) {
   const c = CV[i], R = REGION[i], t = TXT[i], cab = (k) => `<div class="n">${String(k).padStart(2, '0')} / ${String(N - 1).padStart(2, '0')} — ${R[PARADAS[k].id]}</div>`
@@ -551,12 +566,13 @@ function contenidos(i) {
   const B = (html, de, estilo, delay = 0, cls = '') => `<div class="blq ${cls}" data-de="${de}" data-delay="${delay}" style="${estilo}">${html}</div>`
   const vid = (p, cls) => MEDIA[p.n] ? `<div class="media ${cls || ''}"><video src="${MEDIA[p.n].v}" poster="${MEDIA[p.n].img}" muted loop playsinline preload="metadata" aria-label="${p.nombre}"></video></div>` : ''
   // Los tres proyectos usan la misma composición grande: el video/pantalla de su página es el protagonista
-  const enlaces = (p) => (p.links || []).map(([n, u]) => `<a class="btn" href="${u}" target="_blank" rel="noopener">${n} ↗</a>`).join('') + (p.nota ? `<p class="nota-priv">${p.nota}</p>` : '')
+  const AVISO = { es: 'visítalo acá', en: 'visit it here' }
+  const enlaces = (p) => (p.links || []).map(([n, u]) => `<a class="btn" href="${u}" target="_blank" rel="noopener">${n} ↗</a>` + (/demo|portfolio|portafolio/i.test(n) ? `<span class="hint">← ${AVISO[i]}</span>` : '')).join('') + (p.nota ? `<p class="nota-priv">${p.nota}</p>` : '')
   const obra = (k, p) => [
     MEDIA[p.n] ? B(vid(p, 'ampliable'), 'mapa', 'left:47vw;top:13vh;width:42vw', 0) : '',
     B(`${cab(k)}<h2 style="font-size:clamp(28px,3.3vw,52px)">${p.nombre}</h2><div class="n">${p.tipo}</div>`, 'izq', 'left:4vw;top:13vh;width:36vw', .05),
     B(`<p>${p.resumen}</p><ul>${p.puntos.map((x) => `<li>${x}</li>`).join('')}</ul>`, 'izq', 'left:4vw;top:31vh;width:36vw', .1, 'panel'),
-    B(`<div class="datos">${p.datos.map((d) => `<div><strong>${d[0]}</strong><span>${d[1]}</span></div>`).join('')}</div><div class="tec" style="margin-top:12px">${p.tec}</div>`, 'izq', 'left:4vw;bottom:9vh;width:36vw', .34, 'panel fase2'),
+    B(`<div class="datos">${p.datos.map((d) => `<div><strong>${d[0]}</strong><span>${d[1]}</span></div>`).join('')}</div><div class="tec" style="margin-top:12px">${chips(p.tec.split(' · '))}</div>`, 'izq', 'left:4vw;bottom:9vh;width:36vw', .34, 'panel fase2'),
     B(`<div class="enl">${enlaces(p)}</div>`, 'aba', 'left:47vw;top:58vh;width:42vw', .4, 'sec fase2'),
   ].join('')
   return [
@@ -565,7 +581,7 @@ function contenidos(i) {
     // 1 perfil
     B(`${cab(1)}<h2>${t.perfil}</h2>`, 'izq', 'left:4vw;top:14vh;width:42vw', 0) + B(`<p>${c.perfil}</p>`, 'mapa', 'left:4vw;top:30vh;width:44vw', .06, 'panel') + B(`<div class="fila-mini">${c.hacer.map((h, n) => `<div class="mini"><b>0${n + 1}</b><span class="nm" style="font:600 clamp(17px,1.4vw,22px) Lora;color:var(--ink);display:block">${h[0]}</span><span>${h[1]}</span></div>`).join('')}</div>`, 'aba', 'left:4vw;bottom:10.5vh;width:66vw', .34, 'fase2'),
     // 2 experiencia
-    B(`${cab(2)}<h2>${c.expTitulo}</h2>`, 'arr', 'right:5.4vw;top:14vh;width:46vw', 0) + c.exp.map((e, k) => B(`<div class="n">${e[2]}</div><h3>${e[0]}</h3><p style="color:var(--soft);margin-bottom:6px">${e[1]}</p><p>${e[3]}</p>`, k ? 'aba' : 'der', `right:5.4vw;top:${k ? 58 : 31}vh;width:46vw`, k * .04, 'panel')).join('') + B(`<a class="btn" data-ir="3">${c.cta1} ↓</a>`, 'aba', 'right:5.4vw;bottom:9vh', .08),
+    B(`${cab(2)}<h2>${c.expTitulo}</h2>`, 'arr', 'right:5.4vw;top:14vh;width:46vw', 0) + c.exp.map((e, k) => B(`<div class="n">${e[2]}</div><h3>${e[0]}</h3><p style="color:var(--soft);margin-bottom:6px">${e[1]}</p><p>${e[3]}</p>${k === 0 ? `<div class="tec herr">${chips(['Jira', 'Azure DevOps', 'Excel', 'Microsoft Office'])}</div>` : ''}`, k ? 'aba' : 'der', `right:5.4vw;top:${k ? 58 : 31}vh;width:46vw`, k * .04, 'panel')).join('') + B(`<a class="btn" data-ir="3">${c.cta1} ↓</a>`, 'aba', 'right:5.4vw;bottom:9vh', .08),
     // 3 proyectos (tarjetas con las capturas a color)
     B(`${cab(3)}<h2>${c.proyTitulo}</h2><p style="max-width:48ch">${c.proyIntro}</p><p class="venta">${c.proyVenta}</p>`, 'izq', 'left:4vw;top:14vh;width:46vw', 0) + [2, 1, 0, 3].map((pi, k) => { const p = c.proy[pi]; return B(`<a class="tarj" data-ir="${4 + k}"><img src="${MEDIA[p.n].img}" alt=""><span><i class="num">${k + 1}</i><b>${p.nombre}</b><small>${p.tipo}</small></span></a>`, ['aba', 'arr', 'arr', 'der'][k], `left:${4 + k * 22.6}vw;bottom:8vh;width:20.6vw`, k * .03) }).join(''),
     obra(4, c.proy[2]), obra(5, c.proy[1]), obra(6, c.proy[0]), obra(7, c.proy[3]),
