@@ -43,7 +43,7 @@ window.CV = {
         datos: [['3D', 'mapa interactivo'], ['2', 'idiomas']], tec: 'HTML · CSS · JavaScript · Three.js' },
     ],
     iaTitulo: 'IA aplicada, con criterio',
-    iaIntro: 'La IA escribe rápido; el valor está en saber qué pedir, cómo comprobarlo y cuándo decir que no.',
+    iaIntro: 'Me especializo en el uso de la IA como apoyo en el desarrollo y la elaboración de soluciones tecnológicas. Le doy un buen uso, priorizando siempre la efectividad de mis sistemas y soluciones para ofrecer una buena experiencia al usuario.',
     ia: [
       ['Dirijo', 'Defino el problema y las reglas antes de pedir nada.'],
       ['Verifico', 'Nada está listo hasta probarlo: pruebas automáticas y revisión en el navegador.'],
@@ -99,7 +99,7 @@ window.CV = {
         datos: [['3D', 'interactive map'], ['2', 'languages']], tec: 'HTML · CSS · JavaScript · Three.js' },
     ],
     iaTitulo: 'Applied AI, with judgement',
-    iaIntro: 'AI writes fast; the value is in knowing what to ask, how to check it and when to say no.',
+    iaIntro: 'I specialize in using AI as a collaborator in the development and creation of technology solutions. I use it responsibly, always prioritizing the effectiveness of my systems and solutions so as to deliver a good user experience.',
     ia: [
       ['I direct', 'I define the problem and the rules before asking for anything.'],
       ['I verify', 'Nothing is done until tested: automated tests and browser review.'],
