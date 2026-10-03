@@ -97,7 +97,7 @@
   .correo { font: 500 clamp(20px, 2.4vw, 36px) "Lora"; text-decoration: none; border-bottom: 2px solid var(--acento); word-break: break-all; }
   .fila-mini { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; } .mini { padding: 16px 18px; background: color-mix(in srgb, var(--bg) 42%, transparent); -webkit-backdrop-filter: blur(22px) saturate(1.5); backdrop-filter: blur(22px) saturate(1.5); border: 1px solid rgba(255,255,255,.5); border-radius: 18px; box-shadow: 0 20px 50px -26px rgba(60,35,10,.5), inset 0 1px 0 rgba(255,255,255,.65); } .mini b { display: block; font: 600 clamp(15px, 1.25vw, 19px) "Lora"; margin-bottom: 5px; } .mini span { font-size: clamp(12.5px, .95vw, 14.5px); color: var(--soft); line-height: 1.5; display: block; }
   .tarj { display: block; position: relative; overflow: hidden; border-radius: 4px; border: 1px solid var(--ink); cursor: pointer; color: #fff; text-decoration: none; aspect-ratio: 16/10; box-shadow: 0 20px 50px -22px rgba(40,20,5,.65); } .tarj img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s; } .tarj:hover img { transform: scale(1.06); }
-  .tarj::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,6,2,.85), transparent 62%); } .tarj span { position: absolute; z-index: 1; left: 16px; right: 16px; bottom: 12px; } .tarj b { display: block; font: 600 clamp(18px, 1.8vw, 28px) "Lora"; } .tarj small { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
+  .tarj::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10,6,2,.94) 0%, rgba(10,6,2,.82) 38%, rgba(10,6,2,.25) 72%, transparent 100%); } .tarj span { position: absolute; z-index: 1; left: 16px; right: 16px; bottom: 12px; } .tarj b { display: block; font: 600 clamp(18px, 1.8vw, 28px) "Lora"; } .tarj small { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; opacity: .85; }
 
   .nota-priv { font-size: 12px !important; color: var(--soft) !important; margin-top: 10px; border-left: 2px solid var(--acento); padding-left: 10px; } .enl { display: flex; flex-wrap: wrap; gap: 4px 0; align-items: center; }
   .media.ampliable { cursor: zoom-in; position: relative; } .media.ampliable::after { content: "⤢ ampliar"; position: absolute; right: 12px; bottom: 10px; font: 500 10.5px "JetBrains Mono"; letter-spacing: .14em; text-transform: uppercase; color: #fff; background: rgba(0,0,0,.55); padding: 5px 10px; border-radius: 99px; opacity: 0; transition: opacity .25s; } .media.ampliable:hover::after { opacity: 1; }
@@ -248,6 +248,13 @@
   .info .correo { font-size: clamp(18px, calc(2.4 * var(--u)), 36px); }
   .info .tarj b { font-size: clamp(15px, calc(1.8 * var(--u)), 28px); }
   .info .btn { padding: calc(.9 * var(--u)) 0; }
+
+  /* Proyectos: cada tarjeta se une con su isla del mapa */
+  #lazos { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 19; pointer-events: none; overflow: visible; opacity: 0; }
+  #lazos path { fill: none; stroke: var(--acento); stroke-width: 1.8; stroke-dasharray: 2 7; stroke-linecap: round; } #lazos circle { fill: var(--acento); stroke: var(--bg); stroke-width: 2.5; }
+  #lazos text { font: 600 11px "JetBrains Mono"; letter-spacing: .1em; fill: #fff; text-anchor: middle; dominant-baseline: central; }
+  .tarj .num { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--acento); color: #fff; font: 600 12px "JetBrains Mono"; font-style: normal; margin-bottom: 6px; }
+  .info .tel { font: 500 clamp(16px, calc(1.6 * var(--u)), 24px) "Lora"; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
   @media (max-width: 860px) {
     .info { inset: auto 0 52px 0; max-height: 64vh; overflow: hidden; padding: 0 12px; }
     .blq { position: relative !important; left: auto !important; right: auto !important; top: auto !important; bottom: auto !important; width: auto !important; margin: 0 0 8px; }
@@ -280,7 +287,7 @@
 <header><div class="marca t">Juan Sebastián Pulido Bojacá</div>
   <div class="menu"><button id="bInicio" data-ir="0">Inicio</button><button id="bMenu">Menú</button><span><button data-i="es">ES</button> / <button data-i="en">EN</button></span><button id="bTema" aria-label="Tema">◐</button></div></header>
 <div id="recorrido"><div id="escena"><canvas id="lienzo"></canvas><div id="grano"></div><div id="etiquetas"></div></div></div>
-<div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
+<svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
 <script src="contenido.js"></script>
@@ -300,6 +307,7 @@ const ISLAS = {
   sullivan: { cx: 1650, cy: 2450, rx: 240, ry: 170, rot: .3, seed: 21, H: 62 },
   nivel: { cx: 2400, cy: 2850, rx: 340, ry: 240, rot: -.2, seed: 31, H: 84 },
   kairos: { cx: 3150, cy: 2400, rx: 410, ry: 280, rot: .1, seed: 41, H: 100 },
+  cvweb: { cx: 4050, cy: 2500, rx: 270, ry: 190, rot: .25, seed: 91, H: 72 },
   ia: { cx: 3950, cy: 3350, rx: 450, ry: 300, rot: -.15, seed: 53, H: 110 },
   h1: { cx: 4700, cy: 3650, rx: 150, ry: 105, rot: .2, seed: 61, H: 44 },
   h2: { cx: 5080, cy: 3430, rx: 130, ry: 95, rot: -.3, seed: 62, H: 40 },
@@ -428,7 +436,7 @@ function capa(clave, opacidad) { const g = new THREE.BufferGeometry(); g.setAttr
 capa('rejilla', .07); capa('rumbo', .07); capa('ola2', .2); capa('ola', .34); capa('normal', .3); capa('indice', .62); capa('costa2', .42); capa('costa', 1); capa('rosa', .8)
 
 /* Ruta del viaje: puntos que se van revelando */
-const ruta = ['soporte', 'pen', 'sullivan', 'nivel', 'kairos', 'h1', 'ia', 'puerto'].map((k) => [ISLAS[k].cx, ISLAS[k].cy])
+const ruta = ['soporte', 'pen', 'sullivan', 'nivel', 'kairos', 'cvweb', 'h1', 'ia', 'puerto'].map((k) => [ISLAS[k].cx, ISLAS[k].cy])
 const RP = []
 for (let k = 0; k < ruta.length - 1; k++) { const a = ruta[k], b = ruta[k + 1], mx = (a[0] + b[0]) / 2 + (k % 2 ? 160 : -160), my = (a[1] + b[1]) / 2 + (k % 2 ? -120 : 120)
   const largo = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.round(largo / 34)
@@ -448,20 +456,21 @@ const PARADAS = [
   { id: 'inicio', x: 3350, y: 1800, ancho: 6200, dx: .2, dy: .08, yaw: 34, pitch: 50, isla: null, velo: 'izq' },
   { id: 'soporte', x: 3800, y: 900, ancho: 1500, dx: .26, dy: 0, yaw: 38, pitch: 46, isla: 'soporte', velo: 'izq' },
   { id: 'pen', x: 2000, y: 1150, ancho: 2300, dx: -.26, dy: 0, yaw: 20, pitch: 48, isla: 'pen', velo: 'der' },
-  { id: 'arch', x: 2450, y: 2650, ancho: 4400, dx: .1, dy: -.08, yaw: 30, pitch: 52, isla: null, velo: 'izq' },
+  { id: 'arch', x: 2900, y: 2650, ancho: 5000, dx: .06, dy: -.1, yaw: 30, pitch: 52, isla: null, velo: 'izq' },
   { id: 'sullivan', x: 1650, y: 2450, ancho: 800, dx: .24, dy: .2, yaw: 50, pitch: 42, isla: 'sullivan', velo: 'izq' },
   { id: 'nivel', x: 2400, y: 2850, ancho: 1050, dx: .24, dy: .2, yaw: 15, pitch: 44, isla: 'nivel', velo: 'izq' },
   { id: 'kairos', x: 3150, y: 2400, ancho: 1200, dx: .24, dy: .2, yaw: 42, pitch: 44, isla: 'kairos', velo: 'izq' },
+  { id: 'cvweb', x: 4050, y: 2500, ancho: 1150, dx: .24, dy: .2, yaw: 36, pitch: 44, isla: 'cvweb', velo: 'izq' },
   { id: 'conoc', x: 4890, y: 3590, ancho: 1900, dx: .1, dy: .02, yaw: 45, pitch: 42, isla: null, velo: 'izq' },
   { id: 'ia', x: 3950, y: 3350, ancho: 1300, dx: -.22, dy: .2, yaw: 25, pitch: 46, isla: 'ia', velo: 'der' },
   { id: 'puerto', x: 5450, y: 2350, ancho: 1200, dx: .26, dy: 0, yaw: 30, pitch: 45, isla: 'puerto', velo: 'izq' },
 ]
 PARADAS.forEach((q) => { if (q.id !== 'inicio') { const t = S(q.x, q.y); q.x = t[0]; q.y = t[1] } })
-const N = PARADAS.length, IC = 7   // IC: posición de la parada de Conocimientos
-const MEDIA = { 'Servicios Kairos': { v: 'media/kairos.webm', img: 'media/kairos-poster.png' }, 'Nivel': { v: 'media/nivel.webm', img: 'media/nivel-poster.png' }, 'Jardín Sullivan': { v: 'media/sullivan.webm', img: 'media/sullivan-poster.png' } }
+const N = PARADAS.length, IC = 8   // IC: posición de la parada de Conocimientos
+const MEDIA = { '01': { v: 'media/kairos.webm', img: 'media/kairos-poster.png' }, '02': { v: 'media/nivel.webm', img: 'media/nivel-poster.png' }, '03': { v: 'media/sullivan.webm', img: 'media/sullivan-poster.png' }, '04': { v: 'media/portafolio.webm', img: 'media/portafolio-poster.jpg' } }
 const REGION = {
-  es: { inicio: 'Carta general', soporte: 'Sobre mí', pen: 'Península de la Experiencia', arch: 'Archipiélago de las Obras', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', ia: 'Isla de la IA', conoc: 'Conocimientos', puerto: 'Puerto de Contacto' },
-  en: { inicio: 'General chart', soporte: 'About me', pen: 'Experience Peninsula', arch: 'Archipelago of Works', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', ia: 'AI Island', conoc: 'Knowledge', puerto: 'Contact Harbor' },
+  es: { inicio: 'Carta general', soporte: 'Sobre mí', pen: 'Península de la Experiencia', arch: 'Archipiélago de las Obras', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', cvweb: 'Mi portafolio', ia: 'Isla de la IA', conoc: 'Conocimientos', puerto: 'Puerto de Contacto' },
+  en: { inicio: 'General chart', soporte: 'About me', pen: 'Experience Peninsula', arch: 'Archipelago of Works', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', cvweb: 'My portfolio', ia: 'AI Island', conoc: 'Knowledge', puerto: 'Contact Harbor' },
 }
 const TXT = { es: { guia: 'desplázate para navegar', ir: 'Ir a', perfil: 'Perfil', menu: 'Menú', mapa: 'Mapa', lista: 'Lista', inicio: 'Inicio', subir: '↑ Inicio', toca: 'Toca un botón del mapa para ver con qué trabajo.' }, en: { guia: 'scroll to navigate', ir: 'Go to', perfil: 'Profile', menu: 'Menu', mapa: 'Map', lista: 'List', inicio: 'Home', subir: '↑ Home', toca: 'Tap a button on the map to see what I work with.' } }
 let idioma = 'es'
@@ -508,21 +517,21 @@ function cerrarConoc() { conocIdx = -1; document.querySelectorAll('.punto').forE
 const ICONO_IA = [
   SVG('<path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.6-.8 1.6-1.6 0-.5-.3-1-.3-1.5 0-.8.6-1.4 1.4-1.4H17a4 4 0 0 0 4-4c0-5-4-9.5-9-9.5Z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="14.5" cy="7" r="1"/>'),
   SVG('<path d="M8 6 2 12l6 6M16 6l6 6-6 6M13.5 4l-3 16"/>'),
-  SVG('<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h7"/>'),
+  SVG('<rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 8V5M9 13h.01M15 13h.01M9.5 16.5h5"/><circle cx="12" cy="3.6" r="1"/>'),
   SVG('<path d="M20 12a8 8 0 1 1-2.4-5.7M20 4v4h-4"/><path d="m9.5 12 2 2 3-3.5"/>'),
 ]
 const IAPRO = {
   es: [
     { t: 'Diseño', c: '#e0662f', d: 'Exploro identidades, paletas y maquetas con IA y decido el resultado: así nacieron la identidad de Kairos y este portafolio.', tags: ['Identidad', 'Paletas', 'Maquetas'] },
     { t: 'Desarrollo', c: '#3b7dd8', d: 'Uso la IA como asistente en el desarrollo de sistemas y verifico cada resultado con pruebas automáticas: más de 370 en Kairos.', tags: ['Código', 'Pruebas', 'Revisión'] },
-    { t: 'Documentación', c: '#8a63d2', d: 'Genero y reviso documentación con IA: manuales de usuario, guías de instalación y casos de prueba.', tags: ['Manuales', 'Guías', 'Casos de prueba'] },
-    { t: 'Automatización', c: '#3f9b6a', d: 'Optimizo procesos y automatizo tareas recurrentes: copias y Excel de respaldo diarios, reportes y validaciones.', tags: ['Procesos', 'Respaldos', 'Reportes'] },
+    { t: 'Agentes', c: '#8a63d2', d: 'Diseño agentes de IA con instrucciones, herramientas y límites claros, para que hagan tareas repetitivas sin perder el control.', tags: ['Instrucciones', 'Herramientas', 'Límites'] },
+    { t: 'Automatización', c: '#3f9b6a', d: 'Optimizo procesos, automatizo tareas recurrentes y genero documentación: copias y Excel de respaldo diarios, reportes y manuales.', tags: ['Procesos', 'Documentación', 'Respaldos'] },
   ],
   en: [
     { t: 'Design', c: '#e0662f', d: 'I explore identities, palettes and mock-ups with AI and I make the final call: that is how the Kairos identity and this portfolio were born.', tags: ['Identity', 'Palettes', 'Mock-ups'] },
     { t: 'Development', c: '#3b7dd8', d: 'I use AI as an assistant when building systems and verify every result with automated tests: over 370 in Kairos.', tags: ['Code', 'Tests', 'Review'] },
-    { t: 'Documentation', c: '#8a63d2', d: 'I generate and review documentation with AI: user manuals, installation guides and test cases.', tags: ['Manuals', 'Guides', 'Test cases'] },
-    { t: 'Automation', c: '#3f9b6a', d: 'I optimize processes and automate recurring tasks: daily backups and Excel exports, reports and validations.', tags: ['Processes', 'Backups', 'Reports'] },
+    { t: 'Agents', c: '#8a63d2', d: 'I design AI agents with clear instructions, tools and limits, so they handle repetitive tasks without losing control.', tags: ['Instructions', 'Tools', 'Limits'] },
+    { t: 'Automation', c: '#3f9b6a', d: 'I optimize processes, automate recurring tasks and generate documentation: daily backups and Excel exports, reports and manuals.', tags: ['Processes', 'Documentation', 'Backups'] },
   ],
 }
 const PASOS = { es: ['Definir el problema', 'Dirigir a la IA', 'Verificar el resultado', 'Documentar y entregar'], en: ['Define the problem', 'Direct the AI', 'Verify the result', 'Document & deliver'] }
@@ -532,11 +541,11 @@ function contenidos(i) {
   const c = CV[i], R = REGION[i], t = TXT[i], cab = (k) => `<div class="n">${String(k).padStart(2, '0')} / ${String(N - 1).padStart(2, '0')} — ${R[PARADAS[k].id]}</div>`
   // B(contenido, de dónde entra, posición, retraso, clases): cada bloque llega desde el mapa o desde un lado
   const B = (html, de, estilo, delay = 0, cls = '') => `<div class="blq ${cls}" data-de="${de}" data-delay="${delay}" style="${estilo}">${html}</div>`
-  const vid = (p, cls) => MEDIA[p.nombre] ? `<div class="media ${cls || ''}"><video src="${MEDIA[p.nombre].v}" poster="${MEDIA[p.nombre].img}" muted loop playsinline preload="metadata" aria-label="${p.nombre}"></video></div>` : ''
+  const vid = (p, cls) => MEDIA[p.n] ? `<div class="media ${cls || ''}"><video src="${MEDIA[p.n].v}" poster="${MEDIA[p.n].img}" muted loop playsinline preload="metadata" aria-label="${p.nombre}"></video></div>` : ''
   // Los tres proyectos usan la misma composición grande: el video/pantalla de su página es el protagonista
   const enlaces = (p) => (p.links || []).map(([n, u]) => `<a class="btn" href="${u}" target="_blank" rel="noopener">${n} ↗</a>`).join('') + (p.nota ? `<p class="nota-priv">${p.nota}</p>` : '')
   const obra = (k, p) => [
-    MEDIA[p.nombre] ? B(vid(p, 'ampliable'), 'mapa', 'left:47vw;top:13vh;width:42vw', 0) : '',
+    MEDIA[p.n] ? B(vid(p, 'ampliable'), 'mapa', 'left:47vw;top:13vh;width:42vw', 0) : '',
     B(`${cab(k)}<h2 style="font-size:clamp(28px,3.3vw,52px)">${p.nombre}</h2><div class="n">${p.tipo}</div>`, 'izq', 'left:4vw;top:13vh;width:36vw', .05),
     B(`<p>${p.resumen}</p><ul>${p.puntos.map((x) => `<li>${x}</li>`).join('')}</ul>`, 'izq', 'left:4vw;top:31vh;width:36vw', .1, 'panel'),
     B(`<div class="datos">${p.datos.map((d) => `<div><strong>${d[0]}</strong><span>${d[1]}</span></div>`).join('')}</div><div class="tec" style="margin-top:12px">${p.tec}</div>`, 'izq', 'left:4vw;bottom:9vh;width:36vw', .34, 'panel fase2'),
@@ -550,16 +559,16 @@ function contenidos(i) {
     // 2 experiencia
     B(`${cab(2)}<h2>${c.expTitulo}</h2>`, 'arr', 'right:5.4vw;top:14vh;width:46vw', 0) + c.exp.map((e, k) => B(`<div class="n">${e[2]}</div><h3>${e[0]}</h3><p style="color:var(--soft);margin-bottom:6px">${e[1]}</p><p>${e[3]}</p>`, k ? 'aba' : 'der', `right:5.4vw;top:${k ? 58 : 31}vh;width:46vw`, .06 + k * .08, 'panel')).join(''),
     // 3 proyectos (tarjetas con las capturas a color)
-    B(`${cab(3)}<h2>${c.proyTitulo}</h2><p style="max-width:48ch">${c.proyIntro}</p>`, 'izq', 'left:4vw;top:14vh;width:46vw', 0) + c.proy.slice().reverse().map((p, k) => B(`<a class="tarj" data-ir="${4 + k}"><img src="${MEDIA[p.nombre].img}" alt=""><span><b>${p.nombre}</b><small>${p.tipo}</small></span></a>`, ['aba', 'arr', 'der'][k], `left:${4 + k * 31}vw;bottom:8vh;width:29vw`, .06 + k * .07)).join(''),
-    obra(4, c.proy[2]), obra(5, c.proy[1]), obra(6, c.proy[0]),
-    // 7 conocimientos (botones en el mapa + detalle con logos a color)
-    B(`${cab(7)}<h2>${R.conoc}</h2><p style="max-width:34ch">${t.toca}</p>`, 'izq', 'left:4vw;top:15vh;width:36vw', 0) + B(`<p style="color:var(--soft)">${c.estudios[0]}<br>${c.estudios[1]}<br>${c.idiomas}</p>`, 'aba', 'left:4vw;bottom:8vh;width:34vw', .1, 'panel sec') + `<div class="blq panel conoc" data-de="conoc" style="right:5.4vw;top:12vh;width:52vw"></div>`,
-    // 8 IA aplicada
-    B(`${cab(8)}<h2>${c.iaTitulo}</h2><p class="cita">“${c.iaIntro}”</p>`, 'izq', 'left:4vw;top:13vh;width:34vw', 0)
+    B(`${cab(3)}<h2>${c.proyTitulo}</h2><p style="max-width:48ch">${c.proyIntro}</p>`, 'izq', 'left:4vw;top:14vh;width:46vw', 0) + [2, 1, 0, 3].map((pi, k) => { const p = c.proy[pi]; return B(`<a class="tarj" data-ir="${4 + k}"><img src="${MEDIA[p.n].img}" alt=""><span><i class="num">${k + 1}</i><b>${p.nombre}</b><small>${p.tipo}</small></span></a>`, ['aba', 'arr', 'arr', 'der'][k], `left:${4 + k * 22.6}vw;bottom:8vh;width:20.6vw`, .06 + k * .07) }).join(''),
+    obra(4, c.proy[2]), obra(5, c.proy[1]), obra(6, c.proy[0]), obra(7, c.proy[3]),
+    // 8 conocimientos (botones en el mapa + detalle con logos a color)
+    B(`${cab(8)}<h2>${R.conoc}</h2><p style="max-width:34ch">${t.toca}</p>`, 'izq', 'left:4vw;top:15vh;width:36vw', 0) + B(`<p style="color:var(--soft)">${c.estudios[0]}<br>${c.estudios[1]}<br>${c.idiomas}</p>`, 'aba', 'left:4vw;bottom:8vh;width:34vw', .1, 'panel sec') + `<div class="blq panel conoc" data-de="conoc" style="right:5.4vw;top:12vh;width:52vw"></div>`,
+    // 9 IA aplicada
+    B(`${cab(9)}<h2>${c.iaTitulo}</h2><p class="cita">“${c.iaIntro}”</p>`, 'izq', 'left:4vw;top:13vh;width:34vw', 0)
       + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}</div>`, 'aba', 'left:4vw;bottom:9vh;width:34vw', .4, 'sec fase2')
       + IAPRO[i].map((x, k) => B(`<div class="ic">${ICONO_IA[k]}</div><h3>${x.t}</h3><p>${x.d}</p><div class="etiq">${x.tags.map((g) => `<span>${g}</span>`).join('')}</div>`, ['arr', 'der', 'izq', 'aba'][k], `left:${k % 2 ? 71 : 45}vw;top:${k < 2 ? 12 : 50}vh;width:23vw;--c:${x.c}`, k < 2 ? .05 + k * .06 : .3 + (k - 2) * .05, 'panel iac' + (k < 2 ? '' : ' fase2'))).join(''),
-    // 9 contacto
-    B(`${cab(9)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2>`, 'mapa', 'left:4vw;top:16vh;width:56vw', 0) + B(`<p style="max-width:42ch">${c.contactoTexto}</p><p style="margin-top:16px"><a class="correo" href="mailto:${c.correo}">${c.correo}</a></p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:50vh;width:46vw', .08, 'panel cartela') + B(`<a class="btn" href="${c.github}" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:4vw;bottom:13vh', .14),
+    // 10 contacto
+    B(`${cab(10)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2>`, 'mapa', 'left:4vw;top:16vh;width:56vw', 0) + B(`<p style="max-width:42ch">${c.contactoTexto}</p><p style="margin-top:16px"><a class="correo" href="mailto:${c.correo}">${c.correo}</a></p><p style="margin-top:10px"><a class="tel" href="tel:+57${c.telefono.replace(/\s/g, '')}">${c.telefono}</a></p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:50vh;width:46vw', .08, 'panel cartela') + B(`<a class="btn" href="${c.github}" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:4vw;bottom:13vh', .14),
   ]
 }
 
@@ -569,10 +578,10 @@ function construirAnclas(i) {
   const c = CV[i], R = REGION[i]; ANCLAS = []; $('#etiquetas').innerHTML = ''
   const nueva = (html, cls, x, z, dy, vis, id = null) => { const e = document.createElement('div'); e.className = 'etq ' + cls; e.innerHTML = html; $('#etiquetas').appendChild(e); const [h] = relieve(x, z); ANCLAS.push({ e, v: new THREE.Vector3(x, h + dy, z), vis, id }) }
   const isla = (k, nombre, cota, dy = 30, vis = null) => nueva(`<b>${nombre}</b><small>COTA ${String(ISLAS[k].H).padStart(3, '0')}</small>`, 'isla', ISLAS[k].cx, ISLAS[k].cy, dy, vis, k)
-  isla('soporte', R.soporte); isla('pen', R.pen); isla('sullivan', R.sullivan); isla('nivel', R.nivel); isla('kairos', R.kairos); isla('ia', R.ia); isla('puerto', R.puerto)
+  isla('soporte', R.soporte); isla('pen', R.pen); isla('sullivan', R.sullivan); isla('nivel', R.nivel); isla('kairos', R.kairos); isla('cvweb', R.cvweb); isla('ia', R.ia); isla('puerto', R.puerto)
   ;[-.7, .5, 2.2, 3.6].forEach((a, k) => { const [x, z] = punto(ISLAS.soporte, a, .86); nueva(c.hacer[k][0], 'pin', x, z, 12, 1) })
   { const a1 = S(1700, 1100), a2 = S(2400, 1190); nueva(c.exp[0][0].split(' (')[0], 'pin', a1[0], a1[1], 14, 2); nueva(c.exp[1][0], 'pin', a2[0], a2[1], 14, 2) }
-  { const a3 = S(5450, 2330); nueva(c.contactoTitulo, 'pin', a3[0], a3[1], 30, 9) }
+  { const a3 = S(5450, 2330); nueva(c.contactoTitulo, 'pin', a3[0], a3[1], 30, 10) }
   // mares y regiones sin explorar: texto grande que se escala con la cercania de la camara, como rotulos de un mapa
   const MARES = { es: [['Mar de la Curiosidad', 'donde empiezan los proyectos', 2900, 1650], ['Océano del Soporte', 'aguas de atención y seguimiento', 400, 3500], ['Golfo de la Documentación', 'lo escrito permanece', 5200, 1250], ['Estrecho de la Validación', 'probar antes de navegar', 3200, 3050], ['Mar del Código', 'mares de TypeScript', 4700, 4300], ['Terra Incognita', 'por explorar', -1000, 1400], ['Mar de las Preguntas', 'sin respuesta aún', 6900, 3300]], en: [['Sea of Curiosity', 'where projects begin', 2900, 1650], ['Ocean of Support', 'waters of care and follow-up', 400, 3500], ['Gulf of Documentation', 'what is written remains', 5200, 1250], ['Strait of Validation', 'test before you sail', 3200, 3050], ['Sea of Code', 'seas of TypeScript', 4700, 4300], ['Terra Incognita', 'yet to be explored', -1000, 1400], ['Sea of Questions', 'still unanswered', 6900, 3300]] }
   MARES[i].forEach(([n, sub, x, z]) => { const t = S(x, z); nueva(`${n}<small>${sub}</small>`, 'mar', t[0], t[1], 0, null) })
@@ -651,6 +660,16 @@ function pintarUI() {
       const v = b.querySelector('video'); if (v) { if (e > .55 && v.paused) v.play().catch(() => {}); else if (e < .08 && !v.paused) v.pause() }
     })
   })
+
+  // Proyectos: líneas punteadas desde cada tarjeta hasta su isla, con el número de la tarjeta
+  { const sv = $('#lazos'), info3 = document.querySelector('#infos .info[data-k="3"]'), LAZO = ['sullivan', 'nivel', 'kairos', 'cvweb']
+    if (sv && info3 && info3.classList.contains('vis') && !movil()) {
+      const tj = [...info3.querySelectorAll('.tarj')]; let html = '', op = 1
+      tj.forEach((a, k) => { const bq = a.closest('.blq'), o = parseFloat(bq.style.opacity) || 0; op = Math.min(op, o)
+        const r = a.getBoundingClientRect(), I = ISLAS[LAZO[k]], q = proyectar(new THREE.Vector3(I.cx, relieve(I.cx, I.cy)[0] + 28, I.cy)), x0 = r.left + r.width / 2, y0 = r.top
+        html += `<path d="M${x0.toFixed(1)} ${y0.toFixed(1)}C${x0.toFixed(1)} ${(y0 + (q.y - y0) * .55).toFixed(1)} ${q.x.toFixed(1)} ${(q.y + (y0 - q.y) * .45).toFixed(1)} ${q.x.toFixed(1)} ${q.y.toFixed(1)}"/><circle cx="${q.x.toFixed(1)}" cy="${q.y.toFixed(1)}" r="11"/><text x="${q.x.toFixed(1)}" y="${q.y.toFixed(1)}">${k + 1}</text>` })
+      sv.innerHTML = html; sv.style.opacity = op.toFixed(3)
+    } else if (sv && sv.innerHTML) { sv.innerHTML = ''; sv.style.opacity = 0 } }
   // puntos numerados de Conocimientos: aparecen sobre sus islotes cuando la cámara llega
   { const o8 = clamp(1 - Math.abs(pSuave - IC) / .5, 0, 1); if (conocIdx >= 0 && o8 < .15) cerrarConoc()
     document.querySelectorAll('.punto').forEach((p) => { const I = ISLAS[ISLOTES[+p.dataset.n]], q = proyectar(new THREE.Vector3(I.cx, relieve(I.cx, I.cy)[0] + 16, I.cz ?? I.cy)); p._q = q
