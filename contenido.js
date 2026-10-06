@@ -3,7 +3,7 @@
 window.CV = {
   es: {
     nombre: 'Juan Sebastián Pulido Bojacá',
-    rol: 'Soporte técnico y desarrollo web, con foco en front-end',
+    rol: 'Soporte técnico y desarrollo web full stack',
     sub: 'Tecnólogo en Análisis y Desarrollo de Software · Bogotá, Colombia',
     lema: 'Me defino por la calidad y la experiencia del usuario, creando soluciones que marquen la diferencia.',
     perfil: 'Tecnólogo en Análisis y Desarrollo de Software con experiencia en soporte técnico de N1: atención de tickets bajo SLA y seguimiento de cada caso hasta su cierre. Desarrollo aplicaciones web completas, tanto en front-end como en back-end, con diversos lenguajes y herramientas, y me especializo en el diseño y la experiencia de usuario: interfaces interactivas, limpias y de gran impacto visual, construidas con atención al detalle.',
@@ -23,7 +23,7 @@ window.CV = {
     ],
     proyTitulo: 'Proyectos',
     proyIntro: 'Cinco soluciones completas, cada una en su isla del mapa.',
-    proyVenta: 'Soy un desarrollador orientado a soluciones y a la atención a la interfaz y al diseño: cada proyecto parte de un problema real y termina en una interfaz clara, cuidada y resolutiva.',
+    proyVenta: 'Soy un desarrollador orientado a soluciones, atención al diseño e implementación: cada proyecto parte de un problema real y termina en un sistema eficaz, atractivo y funcional.',
     proy: [
       { n: '01', nombre: 'Servicios Kairos', tipo: 'Sistema de ventas e inventario a la medida · cliente real', links: [['Demo en vivo', 'https://pulise222.github.io/kairos-gestion-demo/']],
         resumen: 'Mejoré los procesos de un establecimiento comercial con un sistema de ventas e inventario a la medida, que les dio mejor manejo de las finanzas y de la información, desde el levantamiento de requerimientos hasta la implementación.',
@@ -58,12 +58,12 @@ window.CV = {
     stack: [['Soporte y análisis', ['Jira', 'Azure DevOps', 'Power BI', 'Notion', 'Excel', 'SQL']], ['Desarrollo', ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'PostgreSQL']], ['IA', ['ChatGPT', 'Claude', 'Gemini']]],
     estudios: ['Tecnólogo en Análisis y Desarrollo de Software · SENA', 'Bachiller Académico con énfasis en Ingeniería · I.E.D. Atanasio Girardot'],
     idiomas: 'Español nativo · Inglés B2',
-    contactoTitulo: 'Hablemos', contactoTexto: 'Si crees que puedo aportar valor a tu empresa, no dudes en contactarme.',
+    contactoTitulo: 'Hablemos', contactoTexto: 'Si crees que mis habilidades y mi manejo de herramientas pueden aportar valor a tu empresa o proyecto, no dudes en contactarme: con gusto conversamos sobre cómo puedo ayudarte.',
     correo: 'jpulidobojaca@gmail.com', telefono: '311 856 6722', github: 'https://github.com/pulise222',
   },
   en: {
     nombre: 'Juan Sebastián Pulido Bojacá',
-    rol: 'Technical support and web development, front-end focused',
+    rol: 'Technical support and full stack web development',
     sub: 'Software Analysis and Development Technologist · Bogotá, Colombia',
     lema: 'I make technology work for people. And when the solution does not exist, I build it.',
     perfil: 'Software Analysis and Development Technologist with level 1 technical support experience: handling tickets under SLA and following each case through to closure. I build complete web applications on both the front end and the back end, with a range of languages and tools, and I specialize in design and user experience: interactive, clean interfaces with strong visual impact, crafted with attention to detail.',
@@ -118,7 +118,7 @@ window.CV = {
     stack: [['Support & analysis', ['Jira', 'Azure DevOps', 'Power BI', 'Notion', 'Excel', 'SQL']], ['Development', ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'PostgreSQL']], ['AI', ['ChatGPT', 'Claude', 'Gemini']]],
     estudios: ['Software Analysis and Development Technologist · SENA', 'Academic High School Diploma, Engineering focus · I.E.D. Atanasio Girardot'],
     idiomas: 'Spanish native · English B2',
-    contactoTitulo: 'Let’s talk', contactoTexto: 'If you think I can add value to your company, do not hesitate to contact me.',
+    contactoTitulo: 'Let’s talk', contactoTexto: 'If you think my skills and command of tools can add value to your company or project, do not hesitate to contact me: I would be glad to talk about how I can help.',
     correo: 'jpulidobojaca@gmail.com', telefono: '311 856 6722', github: 'https://github.com/pulise222',
   },
 }

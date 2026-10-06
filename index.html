@@ -141,7 +141,7 @@
   .iac .ic { width: 42px; height: 42px; border-radius: 13px; background: var(--c); color: #fff; display: grid; place-items: center; margin-bottom: 12px; box-shadow: 0 10px 22px -10px var(--c); } .iac .ic svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .iac h3 { margin-bottom: 6px; } .iac p { font-size: clamp(13px, 1.02vw, 15.5px) !important; } .etiq { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; } .etiq span { font: 500 10px "JetBrains Mono"; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 99px; border: 1px solid color-mix(in srgb, var(--c) 55%, transparent); color: var(--ink); background: color-mix(in srgb, var(--c) 12%, transparent); }
   .pasos { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; } .pasos span { font: 500 11px "JetBrains Mono"; letter-spacing: .1em; text-transform: uppercase; padding: 8px 14px; border-radius: 99px; background: color-mix(in srgb, var(--bg) 48%, transparent); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.5); } .pasos em { font-style: normal; color: var(--acento); }
-  .cita { font: italic 400 clamp(17px, 1.55vw, 25px)/1.45 "Lora" !important; max-width: 38ch; color: var(--ink) !important; }
+  .cita { font: 400 clamp(17px, 1.55vw, 25px)/1.5 "DM Sans" !important; max-width: 38ch; color: var(--ink) !important; }
 
   /* Índice y lista (modo ligero) */
   #indice { position: fixed; inset: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(14px); display: none; padding: 90px clamp(18px, 6vw, 90px); overflow: auto; } #indice.abierto { display: block; }
@@ -228,7 +228,7 @@
   .blq.panel > p:first-child + ul li { font-family: "DM Sans", system-ui, sans-serif; }
   .info .n { letter-spacing: .24em; }
   .info h1, .info h2 { font-weight: 600; letter-spacing: -.028em; }
-  .cita { font-weight: 400; letter-spacing: -.01em; }
+  .cita { font-weight: 400; letter-spacing: -.005em; }
 
   /* ═══ Tamaños que se adaptan también al ALTO de la pantalla: --u es la unidad base y --fit la reduce solo si hace falta ═══ */
   .info { --fit: 1; --u: calc(min(1vw, 1.75vh) * var(--fit)); }
@@ -361,7 +361,7 @@
 <svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><svg id="sigue" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 7 7 7-7"/><path d="m5 14 7 7 7-7" opacity=".5"/></svg><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
-<script src="contenido.js?v=1791265871"></script>
+<script src="contenido.js?v=1791266837"></script>
 <script type="module">
 import * as THREE from 'three'
 await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)))   // deja que la pantalla de carga se pinte antes del cálculo pesado
@@ -595,14 +595,14 @@ const ICONO_IA = [
 ]
 const IAPRO = {
   es: [
-    { t: 'Diseño', c: '#e0662f', d: 'Exploro identidades, paletas y maquetas con IA y decido el resultado: así nacieron la identidad de Kairos y este portafolio.', tags: ['Identidad', 'Paletas', 'Maquetas'] },
-    { t: 'Desarrollo', c: '#3b7dd8', d: 'Uso la IA como asistente en el desarrollo de sistemas y verifico cada resultado con pruebas automáticas: más de 370 en Kairos.', tags: ['Código', 'Pruebas', 'Revisión'] },
+    { t: 'Diseño', c: '#e0662f', d: 'Uso la IA como apoyo para crear diseños y aplicativos: identidad visual, armonía de colores e interfaces atractivas y entretenidas.', tags: ['Identidad', 'Colores', 'Interfaces'] },
+    { t: 'Desarrollo', c: '#3b7dd8', d: 'Uso la IA como asistente para agilizar el desarrollo y explorar alternativas; yo defino la solución, reviso cada resultado y decido qué se queda.', tags: ['Código', 'Criterio', 'Revisión'] },
     { t: 'Agentes', c: '#8a63d2', d: 'Diseño agentes de IA con instrucciones, herramientas y límites claros, para que hagan tareas repetitivas sin perder el control.', tags: ['Instrucciones', 'Herramientas', 'Límites'] },
     { t: 'Automatización', c: '#3f9b6a', d: 'Optimizo procesos, automatizo tareas recurrentes y genero documentación: copias y Excel de respaldo diarios, reportes y manuales.', tags: ['Procesos', 'Documentación', 'Respaldos'] },
   ],
   en: [
-    { t: 'Design', c: '#e0662f', d: 'I explore identities, palettes and mock-ups with AI and I make the final call: that is how the Kairos identity and this portfolio were born.', tags: ['Identity', 'Palettes', 'Mock-ups'] },
-    { t: 'Development', c: '#3b7dd8', d: 'I use AI as an assistant when building systems and verify every result with automated tests: over 370 in Kairos.', tags: ['Code', 'Tests', 'Review'] },
+    { t: 'Design', c: '#e0662f', d: 'I use AI as support to create designs and applications: visual identity, colour harmony and attractive, engaging interfaces.', tags: ['Identity', 'Colours', 'Interfaces'] },
+    { t: 'Development', c: '#3b7dd8', d: 'I use AI as an assistant to speed up development and explore alternatives; I define the solution, review every result and decide what stays.', tags: ['Code', 'Judgement', 'Review'] },
     { t: 'Agents', c: '#8a63d2', d: 'I design AI agents with clear instructions, tools and limits, so they handle repetitive tasks without losing control.', tags: ['Instructions', 'Tools', 'Limits'] },
     { t: 'Automation', c: '#3f9b6a', d: 'I optimize processes, automate recurring tasks and generate documentation: daily backups and Excel exports, reports and manuals.', tags: ['Processes', 'Documentation', 'Backups'] },
   ],
@@ -647,7 +647,7 @@ function contenidos(i) {
     B(`${cab(9)}<h2>${R.conoc}</h2><p style="max-width:34ch">${t.toca}</p>`, 'izq', 'left:4vw;top:15vh;width:36vw', 0) + B(`<p style="color:var(--soft)">${c.estudios[0]}<br>${c.estudios[1]}<br>${c.idiomas}</p>`, 'aba', 'left:4vw;bottom:8vh;width:34vw', .1, 'panel sec') + `<div class="blq panel conoc" data-de="conoc" style="right:5.4vw;top:12vh;width:52vw"></div>`,
     // 10 IA aplicada
     B(`${cab(10)}<h2>${c.iaTitulo}</h2><p class="cita">${c.iaIntro}</p>`, 'izq', 'left:4vw;top:13vh;width:34vw', 0)
-      + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}</div>`, 'aba', 'left:4vw;bottom:9vh;width:34vw', .1, 'sec')
+      + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}<em>→</em></div>`, 'aba', 'left:4vw;bottom:9vh;width:34vw', .1, 'sec')
       + IAPRO[i].map((x, k) => B(`<div class="ic">${ICONO_IA[k]}</div><h3>${x.t}</h3><p>${x.d}</p><div class="etiq">${x.tags.map((g) => `<span>${g}</span>`).join('')}</div>`, ['arr', 'der', 'izq', 'aba'][k], `left:${k % 2 ? 71 : 45}vw;top:${k < 2 ? 12 : 50}vh;width:23vw;--c:${x.c}`, k * .03, 'panel iac')).join(''),
     // 11 contacto
     B(`${cab(11)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2><div class="disp"><i></i>${t.disp}</div>`, 'mapa', 'left:4vw;top:12vh;width:56vw', 0)
