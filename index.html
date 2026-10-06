@@ -323,6 +323,7 @@
     #sigue, #pie, #nav3, #brujula, #guia { display: none !important; } #progMov { display: block; }
     #velo { inset: auto 0 0 0; width: auto; height: 62vh; background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 92%, transparent), transparent); -webkit-mask-image: linear-gradient(0deg, #000 55%, transparent); mask-image: linear-gradient(0deg, #000 55%, transparent); }
     #lazos { display: none; }
+    .velo2 { display: none !important; } /* el mapa se ve completo en la mitad de arriba */
     .canales { grid-template-columns: 1fr; gap: 0; } .canal { grid-template-columns: auto 1fr; align-items: center; gap: 0 12px; padding: 12px 0 8px; } .canal b { font-size: 24px; grid-row: 1 / 3; } .canal .cn { display: none; } .canal .cv { font-size: 15px; } .canal .ca { font-size: 9.5px; } .canal::after { top: -4px; width: 9px; height: 9px; }
     .info .disp { font-size: 9.5px; margin-top: 8px; } .info .disp i { width: 7px; height: 7px; }
     body.conoc-on .info[data-k="9"] .blq:not(.conoc) { opacity: 0 !important; pointer-events: none; }
@@ -335,8 +336,6 @@
     .info p, .blq.panel > p:first-child { font-size: 13.5px !important; } .info h2 { font-size: 25px; } .info .iac p { font-size: 11px !important; }
     .info { padding-top: 22px; max-height: calc(100dvh - 112px); }
   }
-  /* «Descargar HV» queda oculto hasta publicar el PDF */
-  a[href="HV.pdf"] { display: none !important; }
 </style>
 </head>
 <body>
@@ -362,7 +361,7 @@
 <svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><svg id="sigue" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 7 7 7-7"/><path d="m5 14 7 7 7-7" opacity=".5"/></svg><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
-<script src="contenido.js?v=1791262517"></script>
+<script src="contenido.js?v=1791264787"></script>
 <script type="module">
 import * as THREE from 'three'
 await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)))   // deja que la pantalla de carga se pinte antes del cálculo pesado
@@ -543,8 +542,8 @@ PARADAS.forEach((q) => { if (q.id !== 'inicio') { const t = S(q.x, q.y); q.x = t
 const N = PARADAS.length, IC = 9   // IC: posición de la parada de Conocimientos
 const MEDIA = { '01': { v: 'media/kairos.webm', m: 'media/kairos-movil.webm', img: 'media/kairos-poster.png' }, '02': { v: 'media/nivel.webm', m: 'media/nivel-movil.webm', img: 'media/nivel-poster.png' }, '03': { v: 'media/sullivan.webm', m: 'media/sullivan-movil.webm', img: 'media/sullivan-poster.png' }, '05': { v: 'media/herencia.webm', m: 'media/herencia-movil.webm', img: 'media/herencia-poster.png' }, '04': { v: 'media/portafolio.webm', m: 'media/portafolio-movil.webm', img: 'media/portafolio-poster.jpg' } }
 const REGION = {
-  es: { inicio: 'Carta general', soporte: 'Sobre mí', pen: 'Península de la Experiencia', arch: 'Archipiélago de las Obras', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', herencia: 'Herencia', cvweb: 'Mi portafolio', ia: 'Isla de la IA', conoc: 'Conocimientos', puerto: 'Puerto de Contacto' },
-  en: { inicio: 'General chart', soporte: 'About me', pen: 'Experience Peninsula', arch: 'Archipelago of Works', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', herencia: 'Herencia', cvweb: 'My portfolio', ia: 'AI Island', conoc: 'Knowledge', puerto: 'Contact Harbor' },
+  es: { inicio: 'Carta general', soporte: 'Sobre mí', pen: 'Península de la Experiencia', arch: 'Archipiélago de los Proyectos', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', herencia: 'Herencia', cvweb: 'Mi portafolio', ia: 'Isla de la IA', conoc: 'Conocimientos', puerto: 'Puerto de Contacto' },
+  en: { inicio: 'General chart', soporte: 'About me', pen: 'Experience Peninsula', arch: 'Archipelago of Projects', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', herencia: 'Herencia', cvweb: 'My portfolio', ia: 'AI Island', conoc: 'Knowledge', puerto: 'Contact Harbor' },
 }
 const TXT = { es: { guia: 'desplázate para navegar', ir: 'Ir a', perfil: 'Perfil', menu: 'Menú', mapa: 'Mapa', lista: 'Lista', inicio: 'Inicio', subir: '↑ Inicio', toca: 'Toca un botón del mapa para ver con qué trabajo.', disp: 'Disponible para nuevas oportunidades', canal: ['Correo', 'WhatsApp', 'GitHub'], accion: ['Escríbeme', 'Abre el chat', 'Mira mi código'], volver: 'Volver al inicio' }, en: { guia: 'scroll to navigate', ir: 'Go to', perfil: 'Profile', menu: 'Menu', mapa: 'Map', lista: 'List', inicio: 'Home', subir: '↑ Home', toca: 'Tap a button on the map to see what I work with.', disp: 'Open to new opportunities', canal: ['Email', 'WhatsApp', 'GitHub'], accion: ['Write to me', 'Open the chat', 'See my code'], volver: 'Back to start' } }
 let idioma = 'es'
@@ -654,7 +653,7 @@ function contenidos(i) {
     B(`${cab(11)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2><div class="disp"><i></i>${t.disp}</div>`, 'mapa', 'left:4vw;top:12vh;width:56vw', 0)
       + B(`<p style="max-width:42ch">${c.contactoTexto}</p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:40vh;width:44vw', .04, 'panel cartela')
       + B(`<div class="canales">
-          <a class="canal" href="mailto:${c.correo}"><b>01</b><span class="cn">${t.canal[0]}</span><span class="cv"><img class="ci" src="https://cdn.simpleicons.org/gmail/EA4335" alt="">${c.correo}</span><span class="ca">${t.accion[0]} →</span></a>
+          <a class="canal" href="https://mail.google.com/mail/?view=cm&fs=1&to=${c.correo}" target="_blank" rel="noopener"><b>01</b><span class="cn">${t.canal[0]}</span><span class="cv"><img class="ci" src="https://cdn.simpleicons.org/gmail/EA4335" alt="">${c.correo}</span><span class="ca">${t.accion[0]} →</span></a>
           <a class="canal" href="https://wa.me/57${c.telefono.replace(/\s/g, '')}" target="_blank" rel="noopener"><b>02</b><span class="cn">${t.canal[1]}</span><span class="cv"><img class="ci" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="">${c.telefono}</span><span class="ca">${t.accion[1]} →</span></a>
           <a class="canal" href="${c.github}" target="_blank" rel="noopener"><b>03</b><span class="cn">${t.canal[2]}</span><span class="cv"><img class="ci gh" src="https://cdn.simpleicons.org/github/2b2013" alt="">pulise222</span><span class="ca">${t.accion[2]} ↗</span></a>
         </div>`, 'aba', 'left:4vw;bottom:15vh;width:66vw', .08)
