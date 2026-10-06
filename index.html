@@ -361,7 +361,7 @@
 <svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><svg id="sigue" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 7 7 7-7"/><path d="m5 14 7 7 7-7" opacity=".5"/></svg><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
-<script src="contenido.js?v=1791266837"></script>
+<script src="contenido.js?v=1791267235"></script>
 <script type="module">
 import * as THREE from 'three'
 await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)))   // deja que la pantalla de carga se pinte antes del cálculo pesado
@@ -596,13 +596,13 @@ const ICONO_IA = [
 const IAPRO = {
   es: [
     { t: 'Diseño', c: '#e0662f', d: 'Uso la IA como apoyo para crear diseños y aplicativos: identidad visual, armonía de colores e interfaces atractivas y entretenidas.', tags: ['Identidad', 'Colores', 'Interfaces'] },
-    { t: 'Desarrollo', c: '#3b7dd8', d: 'Uso la IA como asistente para agilizar el desarrollo y explorar alternativas; yo defino la solución, reviso cada resultado y decido qué se queda.', tags: ['Código', 'Criterio', 'Revisión'] },
+    { t: 'Desarrollo', c: '#3b7dd8', d: 'Uso la IA como asistente para agilizar el desarrollo y explorar alternativas.', tags: ['Código', 'Criterio', 'Revisión'] },
     { t: 'Agentes', c: '#8a63d2', d: 'Diseño agentes de IA con instrucciones, herramientas y límites claros, para que hagan tareas repetitivas sin perder el control.', tags: ['Instrucciones', 'Herramientas', 'Límites'] },
     { t: 'Automatización', c: '#3f9b6a', d: 'Optimizo procesos, automatizo tareas recurrentes y genero documentación: copias y Excel de respaldo diarios, reportes y manuales.', tags: ['Procesos', 'Documentación', 'Respaldos'] },
   ],
   en: [
     { t: 'Design', c: '#e0662f', d: 'I use AI as support to create designs and applications: visual identity, colour harmony and attractive, engaging interfaces.', tags: ['Identity', 'Colours', 'Interfaces'] },
-    { t: 'Development', c: '#3b7dd8', d: 'I use AI as an assistant to speed up development and explore alternatives; I define the solution, review every result and decide what stays.', tags: ['Code', 'Judgement', 'Review'] },
+    { t: 'Development', c: '#3b7dd8', d: 'I use AI as an assistant to speed up development and explore alternatives.', tags: ['Code', 'Judgement', 'Review'] },
     { t: 'Agents', c: '#8a63d2', d: 'I design AI agents with clear instructions, tools and limits, so they handle repetitive tasks without losing control.', tags: ['Instructions', 'Tools', 'Limits'] },
     { t: 'Automation', c: '#3f9b6a', d: 'I optimize processes, automate recurring tasks and generate documentation: daily backups and Excel exports, reports and manuals.', tags: ['Processes', 'Documentation', 'Backups'] },
   ],

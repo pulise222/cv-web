@@ -58,7 +58,7 @@ window.CV = {
     stack: [['Soporte y análisis', ['Jira', 'Azure DevOps', 'Power BI', 'Notion', 'Excel', 'SQL']], ['Desarrollo', ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'PostgreSQL']], ['IA', ['ChatGPT', 'Claude', 'Gemini']]],
     estudios: ['Tecnólogo en Análisis y Desarrollo de Software · SENA', 'Bachiller Académico con énfasis en Ingeniería · I.E.D. Atanasio Girardot'],
     idiomas: 'Español nativo · Inglés B2',
-    contactoTitulo: 'Hablemos', contactoTexto: 'Si crees que mis habilidades y mi manejo de herramientas pueden aportar valor a tu empresa o proyecto, no dudes en contactarme: con gusto conversamos sobre cómo puedo ayudarte.',
+    contactoTitulo: 'Hablemos', contactoTexto: 'Si crees que mis habilidades y mi manejo de herramientas pueden aportar valor a tu empresa o proyecto, no dudes en contactarme.',
     correo: 'jpulidobojaca@gmail.com', telefono: '311 856 6722', github: 'https://github.com/pulise222',
   },
   en: {
@@ -118,7 +118,7 @@ window.CV = {
     stack: [['Support & analysis', ['Jira', 'Azure DevOps', 'Power BI', 'Notion', 'Excel', 'SQL']], ['Development', ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Node.js', 'PostgreSQL']], ['AI', ['ChatGPT', 'Claude', 'Gemini']]],
     estudios: ['Software Analysis and Development Technologist · SENA', 'Academic High School Diploma, Engineering focus · I.E.D. Atanasio Girardot'],
     idiomas: 'Spanish native · English B2',
-    contactoTitulo: 'Let’s talk', contactoTexto: 'If you think my skills and command of tools can add value to your company or project, do not hesitate to contact me: I would be glad to talk about how I can help.',
+    contactoTitulo: 'Let’s talk', contactoTexto: 'If you think my skills and command of tools can add value to your company or project, do not hesitate to contact me.',
     correo: 'jpulidobojaca@gmail.com', telefono: '311 856 6722', github: 'https://github.com/pulise222',
   },
 }
