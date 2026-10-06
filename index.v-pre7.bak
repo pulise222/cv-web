@@ -697,7 +697,7 @@ function pintarUI() {
     if (!activo) { cont.querySelectorAll('video').forEach((v) => !v.paused && v.pause()); return }
     const I = P.isla ? ISLAS[P.isla] : null, wx = I ? I.cx : P.x, wz = I ? I.cy : P.y, q0 = proyectar(new THREE.Vector3(wx, relieve(wx, wz)[0] + 10, wz))
     cont.querySelectorAll('.blq').forEach((b) => {
-      const de = b.dataset.de, delay = 0   // todos los bloques de una parada llegan a la vez (sin retrasos escalonados)
+      const de = b.dataset.de, delay = movil() ? Math.min(+b.dataset.delay, .08) : +b.dataset.delay
       let e
       if (de === 'conoc') e = suave(conocT) * (1 - suave((d - .3) / .2)); else { const a = suave((d + .34 - delay) / .24), o = suave((d - .5) / .2); e = a * (1 - o) }
       b.style.opacity = clamp(e * 1.5, 0, 1).toFixed(3); b.style.setProperty('--e', e.toFixed(3)); b.classList.toggle('on', e > .7)
@@ -765,7 +765,7 @@ const alScroll = () => { pMeta = clamp(scrollY / PASO, 0, N - 1); if (destino !=
 addEventListener('wheel', () => { destino = null }, { passive: true }); addEventListener('touchstart', () => { destino = null }, { passive: true })
 const irA = (x) => { destino = clamp(x, 0, N - 1); destinoT = performance.now(); scrollTo({ top: destino * PASO, behavior: 'smooth' }) }
 const ir = irA
-const TIENE2 = (k) => false && !!document.querySelector(`#infos .info[data-k="${k}"] .fase2`)
+const TIENE2 = (k) => !movil() && !!document.querySelector(`#infos .info[data-k="${k}"] .fase2`)
 function siguiente() { const b = vigente() ?? pMeta, k = Math.floor(b + .04), f = b - k; if (k < N - 1 && TIENE2(k) && f < .12) irA(k + .27); else irA(k + 1) }
 function anterior() { const b = vigente() ?? pMeta, k = Math.floor(b + .04), f = b - k; if (f > .16) irA(k); else irA(k - 1) }
 
