@@ -282,6 +282,22 @@
 
   /* Con cinco tarjetas en la fila, el título y el tipo se ajustan al ancho */
   .tarj { aspect-ratio: 16 / 11; } .tarj b { font-size: clamp(15px, calc(1.45 * var(--u)), 22px) !important; line-height: 1.1; } .tarj small { font-size: 9.5px; letter-spacing: .08em; display: block; margin-top: 3px; }
+
+  /* Contacto: insignia de disponibilidad y tres canales unidos por la ruta punteada */
+  .info .disp { display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; font: 500 11px "JetBrains Mono"; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); }
+  .info .disp i { width: 9px; height: 9px; border-radius: 50%; background: #2fa66a; box-shadow: 0 0 0 0 rgba(47,166,106,.5); animation: late-v 2.2s ease-out infinite; }
+  @keyframes late-v { 0% { box-shadow: 0 0 0 0 rgba(47,166,106,.55); } 70% { box-shadow: 0 0 0 9px rgba(47,166,106,0); } 100% { box-shadow: 0 0 0 0 rgba(47,166,106,0); } }
+  .canales { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 24px; }
+  .canal { position: relative; display: grid; align-content: start; gap: 4px; padding: 26px 8px 8px 0; color: var(--ink); text-decoration: none; transition: transform .25s; }
+  .canal::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: repeating-linear-gradient(90deg, var(--acento) 0 3px, transparent 3px 9px); }
+  .canal::after { content: ""; position: absolute; left: 0; top: -5px; width: 11px; height: 11px; border-radius: 50%; background: var(--acento); box-shadow: 0 0 0 3px var(--bg); transition: transform .25s; }
+  .canal b { font: 400 clamp(30px, calc(2.6 * var(--u)), 44px)/1 "Lora"; color: var(--acento); letter-spacing: -.04em; }
+  .canal .cn { font: 500 10.5px "JetBrains Mono"; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+  .canal .cv { font: 500 clamp(15px, calc(1.5 * var(--u)), 23px)/1.25 "Lora"; word-break: break-word; }
+  .canal .ca { font: 500 11px "JetBrains Mono"; letter-spacing: .14em; text-transform: uppercase; color: var(--acento); border-bottom: 1.5px solid transparent; justify-self: start; transition: border-color .25s, letter-spacing .25s; }
+  .canal:hover { transform: translateY(-3px); } .canal:hover::after { transform: scale(1.35); } .canal:hover .ca { border-color: var(--acento); letter-spacing: .2em; }
+  :root[data-tema="oscuro"] .ci.gh { filter: invert(1); }
+  .info .canal .ci { width: 1em; height: 1em; margin-right: .4em; vertical-align: -.1em; }
   @media (max-width: 860px) {
     /* Celular: el texto se apila abajo, sobre un velo de papel; lo secundario se oculta y, si aun así no cabe, JS reduce la escala */
     .info { inset: auto 0 50px 0; max-height: calc(100dvh - 124px); overflow: hidden; padding: 34px 14px 6px; display: flex; flex-wrap: wrap; align-content: flex-end; gap: 4px 8px;
@@ -307,6 +323,8 @@
     #sigue, #pie, #nav3, #brujula, #guia { display: none !important; } #progMov { display: block; }
     #velo { inset: auto 0 0 0; width: auto; height: 62vh; background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 92%, transparent), transparent); -webkit-mask-image: linear-gradient(0deg, #000 55%, transparent); mask-image: linear-gradient(0deg, #000 55%, transparent); }
     #lazos { display: none; }
+    .canales { grid-template-columns: 1fr; gap: 0; } .canal { grid-template-columns: auto 1fr; align-items: center; gap: 0 12px; padding: 12px 0 8px; } .canal b { font-size: 24px; grid-row: 1 / 3; } .canal .cn { display: none; } .canal .cv { font-size: 15px; } .canal .ca { font-size: 9.5px; } .canal::after { top: -4px; width: 9px; height: 9px; }
+    .info .disp { font-size: 9.5px; margin-top: 8px; } .info .disp i { width: 7px; height: 7px; }
     body.conoc-on .info[data-k="9"] .blq:not(.conoc) { opacity: 0 !important; pointer-events: none; }
     .info .n, .info .tec { font-size: 10px; }
   }
@@ -344,7 +362,7 @@
 <svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><svg id="sigue" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 7 7 7-7"/><path d="m5 14 7 7 7-7" opacity=".5"/></svg><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
-<script src="contenido.js?v=1791261944"></script>
+<script src="contenido.js?v=1791262517"></script>
 <script type="module">
 import * as THREE from 'three'
 await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)))   // deja que la pantalla de carga se pinte antes del cálculo pesado
@@ -528,7 +546,7 @@ const REGION = {
   es: { inicio: 'Carta general', soporte: 'Sobre mí', pen: 'Península de la Experiencia', arch: 'Archipiélago de las Obras', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', herencia: 'Herencia', cvweb: 'Mi portafolio', ia: 'Isla de la IA', conoc: 'Conocimientos', puerto: 'Puerto de Contacto' },
   en: { inicio: 'General chart', soporte: 'About me', pen: 'Experience Peninsula', arch: 'Archipelago of Works', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', herencia: 'Herencia', cvweb: 'My portfolio', ia: 'AI Island', conoc: 'Knowledge', puerto: 'Contact Harbor' },
 }
-const TXT = { es: { guia: 'desplázate para navegar', ir: 'Ir a', perfil: 'Perfil', menu: 'Menú', mapa: 'Mapa', lista: 'Lista', inicio: 'Inicio', subir: '↑ Inicio', toca: 'Toca un botón del mapa para ver con qué trabajo.' }, en: { guia: 'scroll to navigate', ir: 'Go to', perfil: 'Profile', menu: 'Menu', mapa: 'Map', lista: 'List', inicio: 'Home', subir: '↑ Home', toca: 'Tap a button on the map to see what I work with.' } }
+const TXT = { es: { guia: 'desplázate para navegar', ir: 'Ir a', perfil: 'Perfil', menu: 'Menú', mapa: 'Mapa', lista: 'Lista', inicio: 'Inicio', subir: '↑ Inicio', toca: 'Toca un botón del mapa para ver con qué trabajo.', disp: 'Disponible para nuevas oportunidades', canal: ['Correo', 'WhatsApp', 'GitHub'], accion: ['Escríbeme', 'Abre el chat', 'Mira mi código'], volver: 'Volver al inicio' }, en: { guia: 'scroll to navigate', ir: 'Go to', perfil: 'Profile', menu: 'Menu', mapa: 'Map', lista: 'List', inicio: 'Home', subir: '↑ Home', toca: 'Tap a button on the map to see what I work with.', disp: 'Open to new opportunities', canal: ['Email', 'WhatsApp', 'GitHub'], accion: ['Write to me', 'Open the chat', 'See my code'], volver: 'Back to start' } }
 let idioma = 'es'
 
 
@@ -633,7 +651,14 @@ function contenidos(i) {
       + B(`<div class="pasos">${PASOS[i].map((x, n) => `${n ? '<em>→</em>' : ''}<span>${x}</span>`).join('')}</div>`, 'aba', 'left:4vw;bottom:9vh;width:34vw', .1, 'sec')
       + IAPRO[i].map((x, k) => B(`<div class="ic">${ICONO_IA[k]}</div><h3>${x.t}</h3><p>${x.d}</p><div class="etiq">${x.tags.map((g) => `<span>${g}</span>`).join('')}</div>`, ['arr', 'der', 'izq', 'aba'][k], `left:${k % 2 ? 71 : 45}vw;top:${k < 2 ? 12 : 50}vh;width:23vw;--c:${x.c}`, k * .03, 'panel iac')).join(''),
     // 11 contacto
-    B(`${cab(11)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2>`, 'mapa', 'left:4vw;top:16vh;width:56vw', 0) + B(`<p style="max-width:42ch">${c.contactoTexto}</p><p style="margin-top:16px"><a class="correo" href="mailto:${c.correo}"><img class="ci" src="https://cdn.simpleicons.org/gmail/EA4335" alt="Gmail">${c.correo}</a></p><p style="margin-top:12px"><a class="tel" href="https://wa.me/57${c.telefono.replace(/\s/g, '')}" target="_blank" rel="noopener"><img class="ci" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="WhatsApp">${c.telefono}</a></p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:50vh;width:46vw', .08, 'panel cartela') + B(`<a class="btn" href="${c.github}" target="_blank" rel="noopener">GitHub ↗</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:4vw;bottom:13vh', .14),
+    B(`${cab(11)}<h2 style="font-size:clamp(46px,7.4vw,120px)">${c.contactoTitulo}</h2><div class="disp"><i></i>${t.disp}</div>`, 'mapa', 'left:4vw;top:12vh;width:56vw', 0)
+      + B(`<p style="max-width:42ch">${c.contactoTexto}</p><svg class="sello" viewBox="-50 -50 100 100"><circle r="42" fill="#c4552d"/><circle r="35" fill="none" stroke="#f6dfc9" stroke-width="1.2" opacity=".8"/><path d="M0-27 5 0 0 27-5 0Z" fill="#f6dfc9"/><path d="M-27 0 0-5 27 0 0 5Z" fill="#f6dfc9" opacity=".7"/></svg>`, 'izq', 'left:4vw;top:40vh;width:44vw', .04, 'panel cartela')
+      + B(`<div class="canales">
+          <a class="canal" href="mailto:${c.correo}"><b>01</b><span class="cn">${t.canal[0]}</span><span class="cv"><img class="ci" src="https://cdn.simpleicons.org/gmail/EA4335" alt="">${c.correo}</span><span class="ca">${t.accion[0]} →</span></a>
+          <a class="canal" href="https://wa.me/57${c.telefono.replace(/\s/g, '')}" target="_blank" rel="noopener"><b>02</b><span class="cn">${t.canal[1]}</span><span class="cv"><img class="ci" src="https://cdn.simpleicons.org/whatsapp/25D366" alt="">${c.telefono}</span><span class="ca">${t.accion[1]} →</span></a>
+          <a class="canal" href="${c.github}" target="_blank" rel="noopener"><b>03</b><span class="cn">${t.canal[2]}</span><span class="cv"><img class="ci gh" src="https://cdn.simpleicons.org/github/2b2013" alt="">pulise222</span><span class="ca">${t.accion[2]} ↗</span></a>
+        </div>`, 'aba', 'left:4vw;bottom:15vh;width:66vw', .08)
+      + B(`<a class="btn" data-ir="0">↑ ${t.volver}</a><a class="btn" href="HV.pdf">${c.cta2}</a>`, 'aba', 'left:4vw;bottom:8vh', .12),
   ]
 }
 
