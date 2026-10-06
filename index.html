@@ -260,12 +260,12 @@
   #sigue { position: fixed; z-index: 27; right: calc(clamp(8px, 1.1vw, 18px) + 50px); top: 50%; width: 18px; height: 18px; margin-top: -9px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; opacity: .3; animation: sigue 2.8s ease-in-out infinite; transition: visibility .4s; }
   #sigue.fuera { visibility: hidden; }
   @keyframes sigue { 0%, 100% { opacity: .2; transform: translateY(-2px); } 50% { opacity: .5; transform: translateY(3px); } }
-  .info .venta { margin-top: 12px; max-width: 46ch; font-family: Lora, Georgia, serif; font-style: italic; color: var(--ink); }
+  .info .venta { margin-top: 12px; max-width: 46ch; font-family: "DM Sans", system-ui, sans-serif; font-style: normal; color: var(--ink); }
   @media (prefers-reduced-motion: reduce) { #sigue { animation: none; opacity: .35; } }
 
   /* Herramientas con logo pequeño */
   .info .tec { color: color-mix(in srgb, var(--ink) 80%, var(--bg)); }
-  .tl { display: inline-flex; align-items: center; gap: 5px; margin: 0 14px 5px 0; white-space: nowrap; }
+  .tl { display: inline-flex; align-items: center; vertical-align: middle; gap: 5px; margin: 0 14px 5px 0; white-space: nowrap; } /* vertical-align: las fichas con insignia y las de logo comparten línea */
   .tl .mi { width: 14px; height: 14px; object-fit: contain; flex: none; }
   .tl .mb { display: inline-grid; place-items: center; min-width: 15px; height: 15px; padding: 0 3px; border-radius: 3px; color: #fff; font: 700 8px/1 "JetBrains Mono"; font-style: normal; letter-spacing: 0; flex: none; }
   .tec.herr { margin-top: 10px; }
@@ -361,7 +361,7 @@
 <svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><svg id="sigue" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 7 7 7-7"/><path d="m5 14 7 7 7-7" opacity=".5"/></svg><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
-<script src="contenido.js?v=1791264787"></script>
+<script src="contenido.js?v=1791265871"></script>
 <script type="module">
 import * as THREE from 'three'
 await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)))   // deja que la pantalla de carga se pinte antes del cálculo pesado
