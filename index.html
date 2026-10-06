@@ -273,6 +273,12 @@
   /* Contacto: iconos de Gmail y WhatsApp */
   .ci { width: 1em; height: 1em; vertical-align: -.12em; margin-right: .45em; }
   .info .correo { display: inline-block; } .info .tel { display: inline-block; font-size: clamp(17px, calc(1.8 * var(--u)), 26px); }
+
+  /* Mockup de celular: muestra el proyecto en versión móvil (responsive) junto al video de escritorio */
+  .telefono { position: relative; width: 100%; aspect-ratio: 9 / 19.2; padding: 5px; border-radius: 20px; background: linear-gradient(145deg, #2a2420, #0f0c09); box-shadow: 0 30px 60px -18px rgba(40,20,5,.8), 0 0 0 1.5px #4a3f35, inset 0 0 0 1px rgba(255,255,255,.08); }
+  .telefono::before { content: ""; position: absolute; left: 50%; top: 8px; width: 28%; height: 4px; margin-left: -14%; border-radius: 4px; background: #000; z-index: 2; }
+  .telefono .pantalla { width: 100%; height: 100%; border-radius: 15px; overflow: hidden; background: #000; }
+  .telefono video { width: 100%; height: 100%; object-fit: cover; display: block; }
   @media (max-width: 860px) {
     /* Celular: el texto se apila abajo, sobre un velo de papel; lo secundario se oculta y, si aun así no cabe, JS reduce la escala */
     .info { inset: auto 0 50px 0; max-height: calc(100dvh - 124px); overflow: hidden; padding: 34px 14px 6px; display: flex; flex-wrap: wrap; align-content: flex-end; gap: 4px 8px;
@@ -334,7 +340,7 @@
 <svg id="lazos" aria-hidden="true"></svg><div id="velo"></div><div id="veloI" class="velo2"></div><div id="veloD" class="velo2 der"></div><div id="infos"></div><div id="puntos"></div><div id="visor"><button aria-label="cerrar">×</button><video muted loop playsinline controls></video></div>
 <div id="brujula"><svg viewBox="-50 -50 100 100" fill="none" stroke="currentColor" stroke-width="1.2"><circle r="44"/><circle r="38" stroke-width=".6"/><g id="agujaB"><path d="M0 -46L6 0 0 8 -6 0Z" fill="currentColor"/><path d="M0 46L5 0 0 -6 -5 0Z" opacity=".35"/><path d="M-46 0L0 -5 46 0 0 5Z" opacity=".5"/><text y="-52" text-anchor="middle" fill="currentColor" stroke="none" style="font:600 11px Cormorant Garamond;font-style:italic">N</text></g></svg></div><canvas id="tinta"></canvas><div id="cur"><div class="anillo"><span class="ico"></span></div><div class="pt"></div><span class="eti"></span></div><nav id="nav3" aria-label="Recorrido"><button class="fl" id="bPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button><div id="regla"><i class="eje"></i><i class="lleno"></i><i class="mk"></i></div><button class="fl" id="bNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div id="pct">0<small>%</small></div></nav><div id="progMov"><i></i></div><svg id="sigue" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 7 7 7-7"/><path d="m5 14 7 7 7-7" opacity=".5"/></svg><div id="pie"></div><div id="modo"><button id="mMapa" class="on">Mapa</button> / <button id="mLista">Lista</button></div>
 <div id="guia"></div><div id="indice"></div><div id="lista"></div>
-<script src="contenido.js?v=1791050695"></script>
+<script src="contenido.js?v=1791260547"></script>
 <script type="module">
 import * as THREE from 'three'
 await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 60)))   // deja que la pantalla de carga se pinte antes del cálculo pesado
@@ -511,7 +517,7 @@ const PARADAS = [
 ]
 PARADAS.forEach((q) => { if (q.id !== 'inicio') { const t = S(q.x, q.y); q.x = t[0]; q.y = t[1] } })
 const N = PARADAS.length, IC = 8   // IC: posición de la parada de Conocimientos
-const MEDIA = { '01': { v: 'media/kairos.webm', img: 'media/kairos-poster.png' }, '02': { v: 'media/nivel.webm', img: 'media/nivel-poster.png' }, '03': { v: 'media/sullivan.webm', img: 'media/sullivan-poster.png' }, '04': { v: 'media/portafolio.webm', img: 'media/portafolio-poster.jpg' } }
+const MEDIA = { '01': { v: 'media/kairos.webm', m: 'media/kairos-movil.webm', img: 'media/kairos-poster.png' }, '02': { v: 'media/nivel.webm', m: 'media/nivel-movil.webm', img: 'media/nivel-poster.png' }, '03': { v: 'media/sullivan.webm', m: 'media/sullivan-movil.webm', img: 'media/sullivan-poster.png' }, '04': { v: 'media/portafolio.webm', m: 'media/portafolio-movil.webm', img: 'media/portafolio-poster.jpg' } }
 const REGION = {
   es: { inicio: 'Carta general', soporte: 'Sobre mí', pen: 'Península de la Experiencia', arch: 'Archipiélago de las Obras', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', cvweb: 'Mi portafolio', ia: 'Isla de la IA', conoc: 'Conocimientos', puerto: 'Puerto de Contacto' },
   en: { inicio: 'General chart', soporte: 'About me', pen: 'Experience Peninsula', arch: 'Archipelago of Works', sullivan: 'Jardín Sullivan', nivel: 'Nivel', kairos: 'Servicios Kairos', cvweb: 'My portfolio', ia: 'AI Island', conoc: 'Knowledge', puerto: 'Contact Harbor' },
@@ -598,6 +604,7 @@ function contenidos(i) {
   const enlaces = (p) => (p.links || []).map(([n, u]) => `<a class="btn" href="${u}" target="_blank" rel="noopener">${n} ↗</a>` + (/demo|portfolio|portafolio/i.test(n) ? `<span class="hint">← ${AVISO[i]}</span>` : '')).join('') + (p.nota ? `<p class="nota-priv">${p.nota}</p>` : '')
   const obra = (k, p) => [
     MEDIA[p.n] ? B(vid(p, 'ampliable'), 'mapa', 'left:47vw;top:13vh;width:42vw', 0) : '',
+    MEDIA[p.n]?.m ? B(`<div class="telefono"><div class="pantalla"><video src="${MEDIA[p.n].m}" muted loop playsinline preload="metadata" aria-label="${p.nombre} (celular)"></video></div></div>`, 'der', 'left:81vw;top:19vh;width:10vw', .02, 'sec fijo') : '',
     B(`${cab(k)}<h2 style="font-size:clamp(28px,3.3vw,52px)">${p.nombre}</h2><div class="n">${p.tipo}</div>`, 'izq', 'left:4vw;top:13vh;width:36vw', .05),
     B(`<p>${p.resumen}</p><ul>${p.puntos.map((x) => `<li>${x}</li>`).join('')}</ul>`, 'izq', 'left:4vw;top:31vh;width:36vw', .1, 'panel'),
     B(`<div class="datos">${p.datos.map((d) => `<div><strong>${d[0]}</strong><span>${d[1]}</span></div>`).join('')}</div><div class="tec" style="margin-top:12px">${chips(p.tec.split(' · '))}</div>`, 'izq', 'left:4vw;bottom:9vh;width:36vw', .34, 'panel fase2'),
@@ -802,7 +809,7 @@ function acomodar() {
   if (movil()) { document.querySelectorAll('#infos .blq').forEach((b) => { b.style.top = ''; b.style.bottom = '' }); document.querySelectorAll('#infos .info').forEach((c) => { c.style.setProperty('--fit', 1); c.style.zoom = 1; const falta = c.scrollHeight - c.clientHeight; if (falta > 2) c.style.zoom = Math.max(.72, c.clientHeight / c.scrollHeight).toFixed(3) }); return }
   const H = innerHeight, GAP = Math.max(10, H * .018), MARGEN = Math.max(34, H * .06)
   document.querySelectorAll('#infos .info').forEach((cont) => {
-    const bl = [...cont.querySelectorAll('.blq')].filter((b) => b.dataset.de !== 'conoc')
+    const bl = [...cont.querySelectorAll('.blq')].filter((b) => b.dataset.de !== 'conoc' && !b.classList.contains('fijo'))
     bl.forEach((b) => { if (b.dataset.t0 === undefined) { b.dataset.t0 = b.style.top; b.dataset.b0 = b.style.bottom } })
     const restaurar = () => bl.forEach((b) => { b.style.top = b.dataset.t0; b.style.bottom = b.dataset.b0 })
     let fit = 1, tops = []
@@ -905,6 +912,7 @@ geom(); alScroll(); pSuave = pMeta; aplicarTema(tema); pintarTextos(idiomaInicia
 window.__cv = { destino: () => [destino, pMeta], saltar: (p) => { pMeta = pSuave = p; scrollTo(0, p * PASO) }, marcas: _marcas, estado: () => ({ msTerreno: _msInit, pSuave, n: N, lineas: Object.fromEntries(Object.entries(lineas).map(([k, v]) => [k, v.length / 6])) }) }
 document.addEventListener('error', (e) => {
   const t = e.target
+  if (t.tagName === 'VIDEO' && t.closest('.telefono')) { t.closest('.blq')?.remove(); return }
   if (t.tagName === 'VIDEO') { const m = t.closest('.media'); if (m) { m.className = 'media'; m.removeAttribute('style'); m.style.cssText = 'display:grid;place-items:center;text-align:center;padding:20px;background:rgba(43,32,19,.08);border:1px dashed var(--line);box-shadow:none'; m.innerHTML = `<span style="font:500 11px JetBrains Mono;letter-spacing:.16em;text-transform:uppercase;color:var(--soft)">${document.documentElement.lang === 'en' ? 'Preview coming soon' : 'Vista previa próximamente'}</span>` } }
   if (t.tagName === 'IMG' && t.closest('.tarj')) { t.style.display = 'none'; t.closest('.tarj').style.background = 'linear-gradient(135deg,#6b4a2a,#2b2013)' }
 }, true)
