@@ -46,7 +46,7 @@ window.CV = {
         puntos: ['Diseño cálido y elegante, adaptable a computador y celular', 'Disponible en español e inglés, con selector de idioma', 'Pedidos directos por WhatsApp con diseño, talla y colores'],
         datos: [['WhatsApp', 'pedidos directos']], tec: 'HTML · CSS · JavaScript' },
     ],
-    iaTitulo: 'IA aplicada, con criterio',
+    iaTitulo: 'Inteligencia Artificial',
     iaIntro: 'Me especializo en el uso de la IA como apoyo en procesos y reducción de tiempo en diferentes contextos, priorizando siempre la efectividad de mis resultados y soluciones para ofrecer una buena experiencia al usuario.',
     ia: [
       ['Dirijo', 'Defino el problema y las reglas antes de pedir nada.'],
@@ -106,7 +106,7 @@ window.CV = {
         puntos: ['Warm, elegant design that adapts to desktop and mobile', 'Available in Spanish and English, with a language switch', 'Direct WhatsApp orders with design, size and colors'],
         datos: [['WhatsApp', 'direct orders']], tec: 'HTML · CSS · JavaScript' },
     ],
-    iaTitulo: 'Applied AI, with judgment',
+    iaTitulo: 'Artificial Intelligence',
     iaIntro: 'I specialize in using AI as support in processes and to save time in different contexts, always prioritizing the effectiveness of my results and solutions to deliver a good user experience.',
     ia: [
       ['I direct', 'I define the problem and the rules before asking for anything.'],
